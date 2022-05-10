@@ -1,0 +1,29 @@
+/* 태그연산자 */
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+/* class 선택자 */
+.font-CourierNew {
+  font-family: "Courier New", Courier, monospace;
+}
+
+.font-Arial {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.normal {
+  font-style: normal;
+}
+
+.oblique {
+  font-style: oblique;
+}
+
+.bold {
+  font-weight: bold;
+}

@@ -1,0 +1,42 @@
+/* 태그 선택자 */
+div {
+  background-color: lightcoral;
+  width: 300px;
+}
+
+body {
+  background-color: lightpink;
+}
+
+p {
+  color: aquamarine;
+}
+
+/* class 선택자 */
+.text-align-center {
+  text-align: center;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.text-overline {
+  text-decoration: overline;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-indent {
+  text-indent: 20px;
+}

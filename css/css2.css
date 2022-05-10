@@ -1,0 +1,36 @@
+/* 태그 선택자 */
+div {
+  background-color: lightcoral;
+}
+
+body {
+  background-color: lightpink;
+}
+
+p {
+  color: aquamarine;
+}
+
+/* class 선택자 */
+.red-text {
+  color: red;
+}
+
+.yellow-text {
+  color: yellow;
+}
+
+.big-size {
+  font-size: 50px;
+}
+
+/* id 셀렉터 */
+#div1 {
+  background-color: azure;
+  /* override */
+}
+
+p.border {
+  border-style: solid;
+  border-width: 1px;
+}
