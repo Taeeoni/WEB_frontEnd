@@ -23,11 +23,46 @@
       }
 
       .Title {
-        margin: auto;
-        border-style: none;
-        width: 50%;
+        padding: 500px 0;
+        border: none;
+        text-align: center;
+      }
+
+      .header {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: rgb(59, 56, 56);
+        height: 40px;
+        text-align: right;
+        line-height: 40px;
+      }
+
+      .star {
+        padding-left: 20px;
+      }
+
+      .menu {
+        padding-left: 20px;
+      }
+
+      .board {
+        border-style: solid;
+        border-color: white;
+        display: inline-block;
+        padding: 10px;
       }
     </style>
+
+    <div class="header">
+      <span class="star whiteText">☆</span>
+      <span class="menu whiteText">Home</span>
+      <span class="menu whiteText">About</span>
+      <span class="menu whiteText">Projects</span>
+      <span class="menu whiteText">Contract</span>
+    </div>
     <div class="Title">
       <div class="whiteText">
         <h1>
@@ -35,6 +70,11 @@
           <span class="redText">김태언입니다. <br /> </span>저는 풀스택 개발자
           입니다.
         </h1>
+        <br />
+        <br />
+        <a href="https://github.com/Taeeoni" target="_blank">
+            <h3 class="board whiteText">View my Work &#10140</h3>
+        </a>
       </div>
     </div>
   </body>
