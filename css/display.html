@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      div {
+        display: inline-block;
+        height: 200px;
+        border: 1px red solid;
+        /* 안쪽여백 */
+        padding-left: 10px;
+        padding-right: 10px;
+        /* 바깥쪽 여백 */
+        /* top bottom right left */
+        margin: 20px 50px;
+      }
+
+      span {
+        display: block;
+      }
+
+      div.div1 {
+        background-color: pink;
+        margin: 0;
+        padding: 0;
+        display: inline;
+        /* 정해진 위치에 가만히 있는다. */
+        position: relative;
+        left: 30px;
+        top: 30px;
+      }
+
+      div.div2 {
+        position: fixed;
+        left: 80px;
+      }
+    </style>
+
+    <div class="div1">이론</div>
+    <div class="div2">공지사항</div>
+    <div>div</div>
+    <span>span</span>
+    <span>span</span>
+  </body>
+</html>

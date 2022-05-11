@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      .div1 {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 300px;
+        height: 100px;
+        background-color: blue;
+        text-align: center;
+      }
+
+      .div2 {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 300px;
+        width: 100px;
+        height: 300px;
+        background-color: greenyellow;
+        text-align: center;
+      }
+
+      .div3 {
+        display: block;
+        position: absolute;
+        top: 100px;
+        left: 100px;
+        width: 200px;
+        height: 200px;
+
+        text-align: center;
+      }
+
+      .div4 {
+        display: inline-block;
+        position: absolute;
+        background-color: palevioletred;
+        top: 100px;
+        left: 0vmin;
+        width: 100px;
+        height: 300px;
+        text-align: center;
+      }
+
+      .div5 {
+        display: inline-block;
+        position: absolute;
+        background-color: lightseagreen;
+        top: 300px;
+        left: 100px;
+        width: 300px;
+        height: 100px;
+        text-align: center;
+      }
+
+      .container {
+        width: 400px;
+        height: 400px;
+      }
+    </style>
+    <!-- 감싸주는게 좋다, 이동시킬때 absolute 여도 같이 이동시킬수가 있다. -->
+    <div class="container">
+      <div class="div1">1</div>
+      <div class="div2">2</div>
+      <div class="div3">
+        <img
+          src="https://blog.kakaocdn.net/dn/bKnBb9/btq4dwOKPBP/CNPgMyz6JIj6VhwbgwCDNk/img.jpg"
+          alt=""
+          width="200px"
+        />
+      </div>
+      <div class="div4">4</div>
+      <div class="div5">5</div>
+    </div>
+  </body>
+</html>
