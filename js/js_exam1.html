@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1 이름입력 (prompt)
+      var text = prompt("이름을 입력해주세요");
+
+      // 2 만약 이름이 입력 안되었다면 (if 문 )
+      // 입력해 주세요 띄우고 또 입력을 받고
+      // 3 입력 완료 되었을 때  'xx님 안녕하세요'
+      if (text == null || text == "") {
+        alert("다시 입력해주세요");
+        text = prompt("이름을 입력해주세요");
+      }
+
+      alert(`${text}님 안녕하세요`);
+    </script>
+  </body>
+</html>
