@@ -6,27 +6,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <script>
-    let text = prompt("입력할 텍스트");
 
+  <script>
+    let text;
+
+    text = prompt("입력할 텍스트");
     if (text == "" || text == null) {
       alert("텍스트값을 입력해 주세요");
-    } else {
-      document.write("<div class=`big`>" + text + "</div>");
+    }
+
+    function dd() {
+      let items = document.getElementsByClassName("big");
+      items[0].innerHTML = text;
+    }
+
+    function red() {
+      alert("빨강 색으로 변경됩니다.");
+      document.getElementById("change").style.color = "red";
+    }
+
+    function blue() {
+      alert("파랑 색으로 변경됩니다.");
+      document.getElementById("change").style.color = "blue";
+    }
+
+    function green() {
+      alert("그린 색으로 변경됩니다.");
+      document.getElementById("change").style.color = "green";
     }
   </script>
+
   <style>
     .big {
-      display: flex;
-      justify-content: center;
-      align-item: center;
-      font-size: xx-large;
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      font-size: 50px;
+    }
+
+    .center {
+      margin-top: 60px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
     }
   </style>
 
-  <body onload="start()">
+  <body>
+    <div id="change" class="big">text</div>
     <script>
-      function start() {}
+      dd();
     </script>
+
+    <div class="center">
+      <button onclick="red()">빨강</button>
+      <button onclick="blue()">파랑</button>
+      <button onclick="green()">초록</button>
+    </div>
   </body>
 </html>
