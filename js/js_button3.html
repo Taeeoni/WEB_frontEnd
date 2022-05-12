@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+    let change1;
+    let change2;
+    let change3;
+
+    function changehtml() {
+      change1 = document.getElementById("html");
+      change2 = document.getElementById("css");
+      change3 = document.getElementById("javascript");
+      change1.className = "button-r-style";
+      change2.className = "button-display";
+      change3.className = "button-display";
+    }
+
+    function changecss() {
+      change1 = document.getElementById("html");
+      change2 = document.getElementById("css");
+      change3 = document.getElementById("javascript");
+      change1.className = "button-display";
+      change2.className = "button-r-style";
+      change3.className = "button-display";
+    }
+
+    function changejavascript() {
+      change1 = document.getElementById("html");
+      change2 = document.getElementById("css");
+      change3 = document.getElementById("javascript");
+      change1.className = "button-display";
+      change2.className = "button-display";
+      change3.className = "button-r-style";
+    }
+  </script>
+
+  <style>
+    .button-display {
+      display: inline-block;
+      border: 1px black solid;
+      margin: 10px;
+      background-color: gray;
+      color: white;
+      width: 200px;
+      line-height: 50px;
+      text-align: center;
+    }
+
+    .button-r-style {
+      display: inline-block;
+      border: 1px black solid;
+      margin: 10px;
+      background-color: white;
+      color: black;
+      width: 200px;
+      line-height: 50px;
+      text-align: center;
+    }
+  </style>
+
+  <body>
+    <div class="button-style">
+      <div id="html" class="button-display" onclick="changehtml()">html</div>
+      <div id="css" class="button-display" onclick="changecss()">css</div>
+      <div id="javascript" class="button-display" onclick="changejavascript()">
+        javascript
+      </div>
+    </div>
+  </body>
+</html>

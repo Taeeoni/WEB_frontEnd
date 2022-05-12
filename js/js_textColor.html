@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+    let text = prompt("입력할 텍스트");
+
+    if (text == "" || text == null) {
+      alert("텍스트값을 입력해 주세요");
+    } else {
+      document.write("<div class=`big`>" + text + "</div>");
+    }
+  </script>
+  <style>
+    .big {
+      display: flex;
+      justify-content: center;
+      align-item: center;
+      font-size: xx-large;
+    }
+  </style>
+
+  <body onload="start()">
+    <script>
+      function start() {}
+    </script>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+    function addTag() {
+      document.write("<h1>hello</h1>");
+    }
+    function getTitle() {
+      let title = document.getElementById("title");
+      //console.log(title) //TAG
+      console.log(title.textContent); //내용
+    }
+    function getItems() {
+      let items = document.getElementsByClassName("item");
+
+      // 첫번째 아이템
+      let firstItem = items[0];
+      let content = firstItem.textContent;
+      firstItem.textContent = "바보야";
+    }
+
+    function changeClassName() {
+      let target = document.getElementById("target");
+
+      if (isSmallText) {
+        target.className = "big-text";
+        isSmallText = false;
+      } else {
+        target.className = "small-text";
+        isSmallText = true;
+      }
+    }
+    let isSmallText = true;
+
+    function changeHtml() {
+      let pic = document.getElementById("pic");
+      //pic.innerContent = "<h1>뿅!!</h1>";
+      pic.innerHTML = "<h1>뿅!!</h1>";
+    }
+  </script>
+  <body>
+    <style>
+      .big-text {
+        font-size: xx-large;
+      }
+
+      .small-text {
+        font-size: xx-small;
+      }
+    </style>
+    <button onclick="addTag()">TAG 추가</button>
+    <button onclick="getTitle()">title 얻기</button>
+
+    <h1 id="title">Hello World</h1>
+
+    <ul>
+      <!-- 순서없는 목록  -->
+      <li class="item">1</li>
+      <li class="item">2</li>
+      <li class="item">3</li>
+      <li class="item">4</li>
+    </ul>
+
+    <div id="target" class="small-text" onclick="changeClassName()">Hello</div>
+
+    <div id="pic">
+      <img
+        src="https://www.100ssd.co.kr/news/photo/202203/85147_65269_357.jpg"
+        alt=""
+        width="200"
+        onclick="changeHtml()"
+      />
+    </div>
+  </body>
+</html>
