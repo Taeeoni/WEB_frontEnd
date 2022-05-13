@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<script>
+
+$(function (){
+
+    $("#join").click(function () {
+       let everyOK = true;
+
+        // 아이디 이메일형식 아닐시 가입 불가 
+        // @가 없으면 false 처리 하였음 
+        if(!$(":text[name=id]").val().includes("@")){
+            everyOK = false;
+        }
+
+        // 비밀먼호 5자 이상 아닐시 가입 불가 
+        if($(":text[name=password]").val().length < 5){
+            everyOK = false;
+        }
+
+        // 성별 1개 선택 안할시 가입 불가 
+        if($(":checkbox[name=sexcheck]:checked").length != 1){
+            everyOK = false;
+        }
+        
+        // 직업 미선택시 가입불가
+        // name 으로 접근시에는 
+        // $("select[name=셀렉트박스name]").val()
+        //출처: https://oingbong.tistory.com/175
+        if($("#jobs option:selected").val() == null || $("#jobs option:selected").val() == ""){
+            
+            everyOK = false;
+        }
+        // 직업 3개이상 미선택시 가입불가
+        if($(":checkbox[name=hobby]:checked").length < 3){
+            everyOK = false;
+        }
+
+       if(everyOK == true){
+        alert("회원가입 완료");
+       } else{
+           alert("기입 미완료");
+       }
+    });
+
+});
+
+</script>
+
+
+<style>
+.boxalign{
+    position: absolute;
+    left: 100px;
+}
+
+#check{
+    position: absolute;
+    left: 100px;
+}
+
+.button{
+   margin-right : 10px;
+   margin-left : 10px;
+   width: 100px;
+   height: 40px;
+}
+
+
+</style>
+<body>
+    <form
+      action=""
+    >
+      <label for="id">아이디</label>
+      <input type="text" name="id" class="boxalign" /><br /><br />
+      <label for="pw">비밀번호</label>
+      <input type="text" name="password" class="boxalign"/><br /><br />
+      
+      <label for="sex">성별</label>
+      <span id="check">
+      <input type="checkbox" name="sexcheck"/>
+      <label for="check" name="man">남자</label>
+      <input type="checkbox" name="sexcheck"/>
+      <label for="check" name="woman">여자</label>
+      </span>
+      <br/><br/>
+      
+      <label for="job">직업</label>
+      <select id="jobs" class="boxalign">
+        <option value="" name="job"></option>
+        <option value="프로그래머" name="job">프로그래머</option>
+        <option value="의사" name="job">의사</option>
+        <option value="강사" name="job">강사</option>
+      </select>
+      <br /><br />
+
+      <label for="sex">취미</label>
+      <span id="check">
+        <input type="checkbox" name="hobby"/>
+        <label for="check">개발</label>
+        <input type="checkbox" name="hobby"/>
+        <label for="check">게임</label>
+        <input type="checkbox" name="hobby"/>
+        <label for="check">낚시</label> <br/>
+        <input type="checkbox" name="hobby"/> 
+        <label for="check">운동</label>
+        <input type="checkbox" name="hobby"/>
+        <label for="check">독서</label>
+        <input type="checkbox" name="hobby"/>
+        <label for="check">음악감상</label>
+        </span>
+        <br><br><br>
+        
+        <!-- 버튼은 input 방식으로 만들어 주자 (submit형식이기 때문) -->
+        <input type="reset" class="button" value="취소" />
+        <input type="button" class="button" id="join" value="회원가입" />
+        
+
+        
+    </div>
+
+
+      
+</body>
+</html>
