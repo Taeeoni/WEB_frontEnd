@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <script>
+    $(function () {
+      $("#all_check").click(function () {
+        $(":checkbox[name=mycheck]").each(function () {
+          this.checked = true;
+        });
+      });
+
+      $("#check_number_button").click(function () {
+        if ($(":checkbox[name=mycheck]").is(":checked") == true) {
+          $("#result").text("YES");
+        } else {
+          $("#result").text("NO");
+        }
+      });
+
+      $("#box").click(function () {
+        setTimeout(function () {
+          $("div")
+            .animate({
+              left: "+=100px",
+            })
+            .animate({
+              top: "+=100px",
+            });
+        }, 1000);
+      });
+
+      // 1초마다 로그 출력
+      setInterval(function () {
+        console.log("1초마다 로그");
+      }, 1000);
+    });
+  </script>
+
+  <style>
+    #box {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: pink;
+      border: solid 1px black;
+    }
+  </style>
+
+  <body>
+    <form action="">
+      <input type="checkbox" name="mycheck" id="" />
+      <input type="checkbox" name="mycheck" id="" />
+      <input type="checkbox" name="mycheck" id="" />
+      <input type="checkbox" name="mycheck" id="" />
+      <input type="checkbox" name="mycheck" id="" />
+      <!-- <button id="all_check">전체 체크</button> -->
+      <!-- submit 타입이라 안됨  -->
+      <input type="button" id="all_check" value="전체체크" />
+      <input type="button" id="check_number_button" value="체크확인" />
+      <span id="result"></span>
+    </form>
+
+    <div id="box">움직엿</div>
+  </body>
+</html>
