@@ -20,19 +20,10 @@
       items[0].innerHTML = text;
     }
 
-    function red() {
-      alert("빨강 색으로 변경됩니다.");
-      document.getElementById("change").style.color = "red";
-    }
-
-    function blue() {
-      alert("파랑 색으로 변경됩니다.");
-      document.getElementById("change").style.color = "blue";
-    }
-
-    function green() {
-      alert("그린 색으로 변경됩니다.");
-      document.getElementById("change").style.color = "green";
+    function changeColor(color, name) {
+      let color_name = name.innerHTML;
+      alert(`${color_name}색으로 변경됩니다.`);
+      document.getElementById("change").style.color = color;
     }
   </script>
 
@@ -64,9 +55,9 @@
     </script>
 
     <div class="center">
-      <button onclick="red()">빨강</button>
-      <button onclick="blue()">파랑</button>
-      <button onclick="green()">초록</button>
+      <button onclick="changeColor('red', this)">빨강</button>
+      <button onclick="changeColor('blue', this)">파랑</button>
+      <button onclick="changeColor('green', this)">초록</button>
     </div>
   </body>
 </html>
