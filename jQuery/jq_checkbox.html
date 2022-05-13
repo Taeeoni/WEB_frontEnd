@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <script>
+    $(function () {
+      $("#allcheck").click(function () {
+        //누르는 순간 체크가 된것으로 판단
+        //체크 되었는지 알아보는 코드
+        if ($("#allcheck").is(":checked") == true) {
+          $(":checkbox").prop("checked", true);
+        } else {
+          $(":checkbox").prop("checked", false);
+        }
+      });
+
+      $("#printlog").click(function () {
+        for (let i = 0; i < $(":checkbox[id=itemcheck]").length; i++) {}
+      });
+    });
+  </script>
+
+  <style>
+    table,
+    tr,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+
+    td {
+      text-align: center;
+      padding: 5px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .button {
+      margin-right: 10px;
+      margin-left: 300px;
+      width: 100px;
+      height: 40px;
+    }
+  </style>
+
+  <body>
+    <table>
+      <tr>
+        <td><input type="checkbox" id="allcheck" />확인</td>
+        <td>제목</td>
+        <td>글쓴시간</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" id="itemcheck" value="0" /></td>
+        <td name="title0">ㅁㄴㅇㅁㅇㄹㄹ</td>
+        <td>16:31:30</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" id="itemcheck" value="1" /></td>
+        <td name="title1">123123123</td>
+        <td>16:31:30</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" id="itemcheck" value="2" /></td>
+        <td name="title2">ㅇㄻㄱㄱㄷㅂㄷㅂㅈㄷ</td>
+        <td>16:31:30</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" id="itemcheck" /></td>
+        <td name="title3">33331234</td>
+        <td>16:31:30</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" id="itemcheck" /></td>
+        <td name="title4">너무많아~~~</td>
+        <td>16:31:30</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" id="itemcheck" /></td>
+        <td name="title5">하지만 잘하고싶다~~~</td>
+        <td>16:31:30</td>
+      </tr>
+    </table>
+    <br />
+
+    <input type="button" class="button" id="printlog" value="로그" />
+  </body>
+</html>
