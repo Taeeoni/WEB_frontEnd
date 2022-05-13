@@ -20,9 +20,21 @@
       });
 
       $("#printlog").click(function () {
-        for (let i = 0; i < $(":checkbox[id=itemcheck]").length; i++) {}
+
+        $("input:checkbox[id=itemcheck]").each(function()
+        {
+        if($(this).is(":checked") == true){
+          let index = $(this).val();
+          // input 값을 불러올 땐 input:type ~~ 
+          // 그냥 쓰여진 값을 불러올 땐 text()
+          console.log($("[name=title"+index+"]").text());
+        }
+    
+        });
+        
       });
     });
+
   </script>
 
   <style>
@@ -57,32 +69,32 @@
       </tr>
       <tr>
         <td><input type="checkbox" id="itemcheck" value="0" /></td>
-        <td name="title0">ㅁㄴㅇㅁㅇㄹㄹ</td>
+        <td type="text" name="title0">ㅁㄴㅇㅁㅇㄹㄹ</td>
         <td>16:31:30</td>
       </tr>
       <tr>
         <td><input type="checkbox" id="itemcheck" value="1" /></td>
-        <td name="title1">123123123</td>
+        <td type="text" name="title1">123123123</td>
         <td>16:31:30</td>
       </tr>
       <tr>
         <td><input type="checkbox" id="itemcheck" value="2" /></td>
-        <td name="title2">ㅇㄻㄱㄱㄷㅂㄷㅂㅈㄷ</td>
+        <td type="text" name="title2">ㅇㄻㄱㄱㄷㅂㄷㅂㅈㄷ</td>
         <td>16:31:30</td>
       </tr>
       <tr>
-        <td><input type="checkbox" id="itemcheck" /></td>
-        <td name="title3">33331234</td>
+        <td><input type="checkbox" id="itemcheck" value="3"/></td>
+        <td type="text" name="title3">33331234</td>
         <td>16:31:30</td>
       </tr>
       <tr>
-        <td><input type="checkbox" id="itemcheck" /></td>
-        <td name="title4">너무많아~~~</td>
+        <td><input type="checkbox" id="itemcheck" value="4"/></td>
+        <td type="text" name="title4">너무많아~~~</td>
         <td>16:31:30</td>
       </tr>
       <tr>
-        <td><input type="checkbox" id="itemcheck" /></td>
-        <td name="title5">하지만 잘하고싶다~~~</td>
+        <td><input type="checkbox" id="itemcheck" value="5"/></td>
+        <td type="text" name="title5">하지만 잘하고싶다~~~</td>
         <td>16:31:30</td>
       </tr>
     </table>
