@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<script>
+     let text;
+    $(function () {
+
+    $(".big").html(text);
+
+    $(":button").click(function(){
+        let color_name = $(this).val();
+        alert(`${color_name}색으로 변경됩니다.`);
+        // 그냥 단순히 class 명만 적고 .css 하면된다.
+        // 
+        $(".big").css("color", $(this).attr("name"));
+
+    });
+
+    });
+
+
+  </script>
+
+  <style>
+    .big {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      font-size: 50px;
+    }
+
+    .center {
+      margin-top: 60px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+  </style>
+
+  <body>
+    <script>
+    text = prompt("입력할 텍스트");
+    if (text == "" || text == null) {
+      alert("텍스트값을 입력해 주세요");
+    }
+    </script>
+
+    <div id="change" class="big"></div>
+
+    <div class="center">
+      <input type="button" class="button" name="red" value="빨강" />
+      <input type="button" class="button" name="blue" value="파랑" />
+      <input type="button" class="button" name="green" value="초록" />
+    </div>
+
+
+  </body>
+
+</html>
