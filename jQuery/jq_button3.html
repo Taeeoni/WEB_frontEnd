@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<script>
+
+$(function () {
+    
+    $(":button").click(function(){
+        
+        //class 나 name의 값을 불러올때도 attr 사용 
+        // if( $(this).attr("class") == "button-display")
+        $(":button").attr("class", "button-display");
+        $(this).attr("class", "button-r-style");
+
+    });
+
+});
+
+
+</script>
+
+<body>
+    <style>
+        .button-display {
+          display: inline-block;
+          border: 1px black solid;
+          margin: 10px;
+          background-color: gray;
+          color: white;
+          width: 200px;
+          line-height: 50px;
+          text-align: center;
+        }
+    
+        .button-r-style {
+          display: inline-block;
+          border: 1px black solid;
+          margin: 10px;
+          background-color: white;
+          color: black;
+          width: 200px;
+          line-height: 50px;
+          text-align: center;
+        }
+      </style>
+    
+      <body>
+        <input type="button" class="button-display" name="html" value="html"/>
+        <input type="button" class="button-display" name="css" value="css"/>
+        <input type="button" class="button-display" name="javascript" value="javascript"/>
+      </body> 
+</body>
+</html>
