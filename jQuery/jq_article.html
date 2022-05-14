@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  
+    <script>
+
+        $(function () {
+            let count = 1;
+            $("[name=print_article]").click(function(){
+                console.log("확인");
+                // prompt 안에 message 넣으면 입력값 받는 창 위에
+                // message 띄워준다. 
+                let name = prompt("닉네임을 입력해 주세요");
+                let content = prompt("기사 내용을 입력해 주세요");
+                $("#article"+count).append("<b>" + name + " : </b>" + content);
+                count += 1;
+            });
+
+        });
+
+    </script>
+
+
+    <style>
+      .div1 {
+        width: 300px;
+        height: 50px;
+        background-color: rgb(29, 50, 172);
+        color: white;
+        text-align: left;
+        line-height: 50px;
+        padding: 10px;
+      }
+      .div2 {
+        width: 300px;
+        height: ;
+        background-color: rgb(214, 213, 233);
+        text-align: left;
+        line-height: 50px;
+        padding: 10px;
+
+      }
+
+      .div2_1 {
+        display: box;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-left: 20px;
+        margin-right: 20px;
+        background-color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .container {
+      }
+
+      .button {
+      margin-top: 20px;
+      margin-right: 10px;
+      margin-left: 20px;
+      width: 100px;
+      height: 40px;
+    }
+
+    </style>
+
+    <body>
+            <!-- div.container 하면 바로 생성-->
+    <div class="container">
+        <div class="div1">기사등록하기</div>
+        
+        <div class="div2">
+          <div type="text" id="article1" class="div2_1"></div>
+          <div type="text" id="article2" class="div2_1"></div>
+          <div type="text" id="article3" class="div2_1"></div>
+          <div type="text" id="article4" class="div2_1"></div>
+          <div type="text" id="article5" class="div2_1"></div>
+  
+        </div>
+      </div>
+  
+      <input type="button" class="button" name="print_article" value="등록하기" />
+    </body>
+
+</html>
