@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<script>
+
+$(function () {
+
+    $("#missile").animate({
+        left: "-=600px", 
+     }, 3000)
+
+
+    //키 입력시 발생하는 이벤트 
+      $(document).keyup(function (event) {
+        // 파라미터를 두고 keyCode 를 통해 키보드 입력값 확인 
+            if(event.keyCode == '32'){ // 좌측 화살표 
+         
+            $("#character").animate({
+             top: "-=100px", 
+            }).animate({
+                top: "+=100px",
+            }) 
+            
+            }
+ 
+      });
+
+    });
+
+</script>
+
+<style>
+    /* static이 디폴트 값이므로 position을 변경해주어야 한다. */
+    div{
+        position: relative;
+        width: 500px;
+        height: 500px;
+        border: 5px red solid;
+        margin: 50px; 
+        overflow: hidden;
+    }
+
+
+    #character{
+        position: absolute;
+        left: 50px;
+        top: 440px;
+    }
+ 
+    #missile{
+        position: absolute;
+        left: 450px;
+        top: 470px;
+        
+    }
+</style>
+
+<body>
+    <div>
+    <img width="50px" id="character" src="https://w7.pngwing.com/pngs/927/174/png-transparent-new-super-mario-bros-wii-new-super-mario-bros-wii-super-paper-mario-mario-heroes-super-mario-bros-sonic-the-hedgehog.png">
+    <img width="50px" id="missile" src="https://w.namu.la/s/0df082946345a758c734321dfca97be3eac01b94f198a6baa853783d56246da2771d7b06575db4b744ba7802b683d7bbd829e71d3c99ba78102500e7b8d30903dd653c80776576f4cbb55bb07612a0ce" alt="">
+</div>  
+</body>
+</html>
