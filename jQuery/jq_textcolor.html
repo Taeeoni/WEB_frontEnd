@@ -17,7 +17,7 @@
         let color_name = $(this).val();
         alert(`${color_name}색으로 변경됩니다.`);
         // 그냥 단순히 class 명만 적고 .css 하면된다.
-        // 
+        //.css(command , change_content)
         $(".big").css("color", $(this).attr("name"));
 
     });
@@ -31,9 +31,11 @@
     .big {
       margin: 0;
       position: absolute;
+      /* 기준점 위치를 top, left로 잡아준다. */
       top: 50%;
       left: 50%;
-      -ms-transform: translate(-50%, -50%);
+      /* 그냥 top, left 만 하면 기준점이 컨텐츠 왼쪽맨위로 맞춰진다. */
+      /* translate를 통해 컨텐츠의 중앙지점이 기준점으로 오게끔!! */
       transform: translate(-50%, -50%);
       font-size: 50px;
     }
@@ -43,7 +45,6 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      -ms-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
     }
   </style>
