@@ -11,7 +11,12 @@
     $(function () {
       $("#allcheck").click(function () {
         //누르는 순간 체크가 된것으로 판단
+
+        // 교수님 코드 ( 한줄로 끝.... ㄷㄷ)
+        // $(":checkbox").prop("checked", this.checked);
+
         //체크 되었는지 알아보는 코드
+        // if(this.checked == true) 도 된다.....
         if ($("#allcheck").is(":checked") == true) {
           $(":checkbox").prop("checked", true);
         } else {
@@ -19,28 +24,29 @@
         }
       });
 
+      // 체크된 것이 없을 때
       $("#printlog").click(function () {
-
-        $("input:checkbox[id=itemcheck]").each(function()
-        {
-        if($(this).is(":checked") == true){
-          let index = $(this).val();
-          // input 값을 불러올 땐 input:type ~~ 
-          // 그냥 쓰여진 값을 불러올 땐 text()
-          console.log($("[name=title"+index+"]").text());
+        if ($(":checkbox").is(":checked") == false) {
+          alert("체크 된 것이 없음 ");
         }
-    
+
+        $("input:checkbox[id=itemcheck]").each(function () {
+          if ($(this).is(":checked") == true) {
+            let index = $(this).val();
+            // input 값을 불러올 땐 input:type ~~
+            // 그냥 쓰여진 값을 불러올 땐 text()
+            console.log($("[name=title" + index + "]").text());
+          }
         });
-        
       });
     });
-
   </script>
 
   <style>
     table,
     tr,
-    td {
+    td,
+    th {
       border: 1px solid black;
       border-collapse: collapse;
     }
@@ -63,9 +69,10 @@
   <body>
     <table>
       <tr>
-        <td><input type="checkbox" id="allcheck" />확인</td>
-        <td>제목</td>
-        <td>글쓴시간</td>
+        <!-- 첫줄만 진하게 td => th -->
+        <th><input type="checkbox" id="allcheck" />확인</th>
+        <th>제목</th>
+        <th>글쓴시간</th>
       </tr>
       <tr>
         <td><input type="checkbox" id="itemcheck" value="0" /></td>
@@ -83,17 +90,17 @@
         <td>16:31:30</td>
       </tr>
       <tr>
-        <td><input type="checkbox" id="itemcheck" value="3"/></td>
+        <td><input type="checkbox" id="itemcheck" value="3" /></td>
         <td type="text" name="title3">33331234</td>
         <td>16:31:30</td>
       </tr>
       <tr>
-        <td><input type="checkbox" id="itemcheck" value="4"/></td>
+        <td><input type="checkbox" id="itemcheck" value="4" /></td>
         <td type="text" name="title4">너무많아~~~</td>
         <td>16:31:30</td>
       </tr>
       <tr>
-        <td><input type="checkbox" id="itemcheck" value="5"/></td>
+        <td><input type="checkbox" id="itemcheck" value="5" /></td>
         <td type="text" name="title5">하지만 잘하고싶다~~~</td>
         <td>16:31:30</td>
       </tr>

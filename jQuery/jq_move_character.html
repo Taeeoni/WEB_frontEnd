@@ -1,78 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
-<script>
-
-$(function () {
-
-    //키 입력시 발생하는 이벤트 
+  </head>
+  <script>
+    $(function () {
+      //키 입력시 발생하는 이벤트
       $(document).keyup(function (event) {
-        // 파라미터를 두고 keyCode 를 통해 키보드 입력값 확인 
-        
-        
-            if(event.keyCode == '37'){ // 좌측 화살표 
+        // 파라미터를 두고 keyCode 를 통해 키보드 입력값 확인
 
-            //이렇게 하면 안될거 같은데 어떻게 해야할지 모르겠다
-            if($("img").offset().left >= 60 ) {
-            $("img").animate({
-            left: "-=30px",
-            })
-            }
+        if (event.keyCode == "37") {
+          // 좌측 화살표
 
-            } else if(event.keyCode == '38'){ // 위측 화살표
-            $("img").animate({
+          //이렇게 하면 안될거 같은데 어떻게 해야할지 모르겠다
+          if ($("img").offset().left >= 100) {
+            // css로 하면 막힌다.
+            // animate 으로 하면 stop을 걸어주면서 해줘야
+            // 막눌러도 멈춰진다고 하신다.
+            $("img").css({
+              left: "-=30px",
+            });
+          }
+        } else if (event.keyCode == "38") {
+          // 위측 화살표
+          $("img").animate({
             top: "-=30px",
-            })
-
-
-            } else if(event.keyCode == '39'){ // 우측 화살표
-            $("img").animate({
+          });
+        } else if (event.keyCode == "39") {
+          // 우측 화살표
+          $("img").animate({
             left: "+=30px",
-            })
-
-
-            } else if(event.keyCode == '40'){ // 아래 화살표 
-            $("img").animate({
+          });
+        } else if (event.keyCode == "40") {
+          // 아래 화살표
+          $("img").animate({
             top: "+=30px",
-            })
-
-            }
-       
+          });
+        }
       });
-
-
     });
+  </script>
 
-</script>
-
-<style>
+  <style>
     /* static이 디폴트 값이므로 position을 변경해주어야 한다. */
-    div{
-        position: relative;
-       
-        width: 500px;
-        height: 500px;
-        border: 5px red solid;
-        margin: 50px;
+    div {
+      position: relative;
+
+      width: 500px;
+      height: 500px;
+      border: 5px red solid;
+      margin: 50px;
     }
 
-
-    img{
-        position: absolute;
-        left: 200px;
-        top: 200px;
+    img {
+      position: absolute;
+      left: 200px;
+      top: 200px;
     }
-</style>
+  </style>
 
-<body>
+  <body>
     <div>
-    <img width="50px" id="character" src="https://image.aladin.co.kr/product/25434/23/cover500/f022633417_1.jpg" alt="">
-    </div>  
-</body>
+      <img
+        width="50px"
+        id="character"
+        src="https://image.aladin.co.kr/product/25434/23/cover500/f022633417_1.jpg"
+        alt=""
+      />
+    </div>
+  </body>
 </html>
