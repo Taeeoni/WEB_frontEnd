@@ -188,14 +188,15 @@
         fire.show();
 
         isAttacking = true;
-        fire.animate({ left: "" }, 1300, function () {
+        fire.animate({ left: "+=500px" }, 1300, function () {
           isAttacking = false;
           mario.attr("src", "../assets/rizamong.gif");
+          fire.hide();
+          if (fireRight > killerLeft) {
+            console.log("주금");
+          }
+          fire.css("left", "-110px");
         });
-
-        if (fireRight > killerLeft && killerLeft > 0) {
-          console.log("주금");
-        }
       }
 
       function dead() {
@@ -227,7 +228,7 @@
       });
 
       $("body").keydown(function (event) {
-        console.log(event.key);
+        //console.log(event.key);
         // 마리오 현재 좌표 정보
         let left = parseInt(mario.css("left").replace("px", ""));
         let top = parseInt(mario.css("top").replace("px", ""));
