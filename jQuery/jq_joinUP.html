@@ -26,6 +26,7 @@ $(function (){
         }
 
         // 성별 1개 선택 안할시 가입 불가 
+        // feedback : input -> option으로 하는것이 좋아보인다 하심 
         if($(":checkbox[name=sexcheck]:checked").length != 1){
             everyOK = false;
         }
