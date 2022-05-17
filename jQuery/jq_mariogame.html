@@ -122,22 +122,19 @@
       let isJumping = false;
       let isGameOver = false;
       let isAttacking = false;
-     
+
       let score = 0;
 
       $(function () {
-
-        setInterval(function(){
-
-        let fire = $("#fire");
-        let fireLeft = parseInt(fire.css("left").replace("px", ""));
-        let fireRight = fireLeft + 50;
-        let killerLeft = parseInt(killer.css("left").replace("px", ""));
+        setInterval(function () {
+          let fire = $("#fire");
+          let fireLeft = parseInt(fire.css("left").replace("px", ""));
+          let fireRight = fireLeft + 50;
+          let killerLeft = parseInt(killer.css("left").replace("px", ""));
           if (fireRight > killerLeft && killerLeft > 130) {
             shutdown();
           }
           //console.log(killerLeft);
-
         }, 100);
 
         $("#fire").hide();
@@ -146,9 +143,6 @@
           game();
           $(this).hide();
         });
-
-        
-
       });
 
       function gameStart() {
@@ -179,7 +173,7 @@
           killer.css({ right: "-100px" });
 
           if (isGameOver == false) {
-            setTimeout(moveKiller, 1000);          
+            setTimeout(moveKiller, 1000);
             killer.show();
             score += 100;
             $("#score").text(`SCORE : ${score}`);
@@ -187,10 +181,8 @@
             score = 0;
             $("#score").text(`SCORE : ${score}`);
           }
-
         });
       }
-
 
       function attack() {
         let now_marioLeft = parseInt(mario.css("left").replace("px", ""));
@@ -198,7 +190,7 @@
         let killerLeft = parseInt(killer.css("left").replace("px", ""));
         let fire = $("#fire");
 
-        mario.attr("src", "../assets/rizamong_shoot.gif");
+        mario.attr("src", "../assets/rizamongShoot.gif");
         let fireLeft = parseInt(fire.css("left").replace("px", ""));
         let fireRight = fireLeft + 50;
 
@@ -221,9 +213,7 @@
         });
       }
 
-      function shutdown(){
-        
-       
+      function shutdown() {
         killer.hide();
 
         /*
@@ -231,9 +221,7 @@
         killer.after(data);
         moveKiller();
         */
-
       }
-
 
       function dead() {
         let killerLeft = parseInt(killer.css("left").replace("px", ""));
