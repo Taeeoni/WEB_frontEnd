@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <script>
+      $(function () {
+        fetch("https://jsonplaceholder.typicode.com/todos/")
+          // y = f(x)
+          // function f(x) {  내용 (output)}
+          // x (input) => 내용(output) // js 화살표 표기법, lamda 표기법
+          // response (input) => response.json() (output, returnValue)
+
+          .then((response) => response.json()) // then -> Promise 비동기 다루는 코드
+          .then((jsonArray) => {
+            /*
+            json.each(function(){
+              console.log(this);
+            })
+            */
+            //console.log(json[5]);
+
+            //arr.forEach(callback(currentvalue[, index[, array]])[, thisArg])
+            // 첫번째 파라미터 : value
+            // 나머지 파라미터는 옵션 값
+            // 두번째 파라미터 : index
+            // 세번째 파라미터 : array (forEach()를 호출한 배열.)
+            // 네번째 파라미터 : callback을 실행할 때 this로 사용할 값.
+
+            /* jsonArray.forEach(function(data, idx){
+              console.log(data.title);
+            }) */
+            jsonArray.forEach((element, idx) => {
+              console.log(element.title);
+            });
+
+            for (var i = 0; i < jsonArray.length; i++) {
+              $("#demo").append(`
+              <ul>
+                <li>${jsonArray[i].title}</li>
+              </ul>
+            `);
+            }
+          });
+      });
+    </script>
+
+    <div id="demo">
+      <ul>
+        <li>목록 표시</li>
+      </ul>
+    </div>
+  </body>
+</html>

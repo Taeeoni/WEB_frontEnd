@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function loadDoc() {
+        // AJAX, 비동기 ?
+        // 실시간으로 웹 화면을 일부만 갱신하도록 할때!
+
+        // XMLHttopRequest 생성
+        let xhttp = new XMLHttpRequest();
+
+        // 응답 왔을 때의 콜백 함수 정의
+        xhttp.onreadystatechange = function () {
+          // readyState가 뭘까? XMLHttopRequest 객체를 살펴봐야 한다.
+          // readyState = 3 : loading ...
+          // readyState = 4 : done! , 정상완료 (응답이 오면 잘못된 정보여도 정상)
+          // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState
+          // http status = 200 : OK! (서버 입장에서 정상 동작이다.)
+          // http status = 404 : Not Found
+          //https://developer.mozilla.org/ko/docs/Web/HTTP/Status
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("demo").innerHTML = this.responseText;
+          }
+        };
+
+        // 통신방식이나 대상을 설정
+        // 방식에는 여러가지가 있다. : GET (읽기), POST (쓰기), PATCH, DELETE, ...
+        // txt 파일이 아니라 http ~~~ 가 될수도 있다.
+        // CORS : 가져오는 리소스들이 안전한지 검사하는 관문
+        // https://inpa.tistory.com/entry/WEB-%F0%9F%93%9A-CORS-%F0%9F%92%AF-%EC%A0%95%EB%A6%AC-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95-%F0%9F%91%8F
+        xhttp.open("GET", "ajax_info.txt", true);
+        // 실행
+        xhttp.send();
+      }
+    </script>
+
+    <div id="demo"></div>
+    <button onclick="loadDoc()">get data</button>
+  </body>
+</html>

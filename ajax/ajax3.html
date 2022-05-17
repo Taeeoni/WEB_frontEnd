@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function loadDoc() {
+        fetch("people.json")
+          // y = f(x)
+          // function f(x) {  내용 (output)}
+          // x (input) => 내용(output) // js 화살표 표기법, lamda 표기법
+          // response (input) => response.json() (output, returnValue)
+
+          .then((response) => response.json()) // then -> Promise 비동기 다루는 코드
+          .then((json) => {
+            //JSON.stringify() : json 데이터를 string으로 변환해 주는 내장 함수
+            document.getElementById("demo").innerHTML = JSON.stringify(json);
+
+            let result = `${json.name} 의 기술 : ${json.skill}`;
+            document.getElementById("demo").textContent = result;
+          });
+      }
+    </script>
+
+    <div id="demo"></div>
+    <button onclick="loadDoc()">get data</button>
+  </body>
+</html>
