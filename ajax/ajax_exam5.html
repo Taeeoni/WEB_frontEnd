@@ -20,13 +20,17 @@
     body {
       background: lightblue;
       font-family: "Roboto", sans-serif;
-      display: flex;
+      display: inline-block;
       height: 100vh;
     }
 
+    /* 변경하였음 */
+    /* https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox */
+    /* flex display 어떻게 행과 열을 조정하는가  */
     .hero-container {
       margin: auto;
       display: flex;
+      flex-wrap: wrap;
     }
 
     .main-container {
@@ -162,34 +166,62 @@
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 5px;
     }
+
+
+
+   
   </style>
 
   <body>
     <script>
       $(function () {
+        loadData();
+
+      });
+
+      
+      function moveDetailPage(detail){
+        window.location.href = `exam5_detail.html?id=${detail}`;
+      };
+      
+
+
+      function loadData(){
         fetch(
-          "https://api.themoviedb.org/3/movie/upcoming?api_key=a64533e7ece6c72731da47c9c8bc691f&language=ko-KR&page=1/posts/"
+          "https://api.themoviedb.org/3/movie/upcoming?api_key=a64533e7ece6c72731da47c9c8bc691f&language=ko-KR&page=1"
         )
           .then((response) => response.json()) // then -> Promise 비동기 다루는 코드
-          .then((json) => {
-            json.forEach((data, i) => {
-              $(".main-container").append(`
-      <div class="poster-container">
-      	<a href="#"><img src="https://i.ibb.co/ThPNnzM/blade-runner.jpg" class="poster" /></a>
-      </div>
-      <div class="ticket-container">
-      	<div class="ticket__content">
-      		<h4 class="ticket__movie-title">${json.title}</h4>
-      		<p class="ticket__movie-slogan">
-      		</p>
-      	</div>
+          .then((jsonArray) => {
 
-               `);
+              let list = $('#result');
+
+             //jsonArray 뒤에 results를 안붙여서 해맸다 주의하자  
+             jsonArray.results.forEach((data, i) => {
+              //for(let i = 0; i < jsonArray.results.length; i++){
+              list.append(`
+              <div class="main-container" onclick="moveDetailPage(${i})">
+              <div class="poster-container">
+                <img src="https://image.tmdb.org/t/p/w500${jsonArray.results[i].poster_path}" class="poster" />
+              </div>
+              <div class="ticket-container">
+              <div class="ticket__content">
+                <h4 class="ticket__movie-title">${jsonArray.results[i].title}</h4>
+                <p class="ticket__movie-slogan">
+                </p>
+              </div>
+              </div>
+            </div>
+              `);
+
             });
-          });
-      });
-    </script>
+            });
 
-    <div class="main-container"></div>
+            
+            };
+
+    </script>
+  <div id = "result" class="hero-container">
+    
+  </div>
   </body>
 </html>
