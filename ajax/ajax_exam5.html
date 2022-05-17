@@ -176,15 +176,11 @@
     <script>
       $(function () {
         loadData();
-
       });
 
-      
       function moveDetailPage(detail){
         window.location.href = `exam5_detail.html?id=${detail}`;
       };
-      
-
 
       function loadData(){
         fetch(
@@ -212,16 +208,10 @@
               </div>
             </div>
               `);
-
             });
-            });
-
-            
-            };
-
+          });
+       };
     </script>
-  <div id = "result" class="hero-container">
-    
-  </div>
+  <div id = "result" class="hero-container"></div>
   </body>
 </html>
