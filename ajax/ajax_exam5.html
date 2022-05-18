@@ -166,10 +166,6 @@
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 5px;
     }
-
-
-
-   
   </style>
 
   <body>
@@ -178,30 +174,29 @@
         loadData();
       });
 
-      function moveDetailPage(detail){
+      function moveDetailPage(detail) {
         window.location.href = `exam5_detail.html?id=${detail}`;
-      };
+      }
 
-      function loadData(){
+      function loadData() {
         fetch(
           "https://api.themoviedb.org/3/movie/upcoming?api_key=a64533e7ece6c72731da47c9c8bc691f&language=ko-KR&page=1"
         )
           .then((response) => response.json()) // then -> Promise 비동기 다루는 코드
-          .then((jsonArray) => {
+          .then((movieArray) => {
+            let list = $("#result");
 
-              let list = $('#result');
-
-             //jsonArray 뒤에 results를 안붙여서 해맸다 주의하자  
-             jsonArray.results.forEach((data, i) => {
-              //for(let i = 0; i < jsonArray.results.length; i++){
+            //movieArray 뒤에 results를 안붙여서 해맸다 주의하자
+            movieArray.results.forEach((movie, i) => {
+              //for(let i = 0; i < movieArray.results.length; i++){
               list.append(`
               <div class="main-container" onclick="moveDetailPage(${i})">
               <div class="poster-container">
-                <img src="https://image.tmdb.org/t/p/w500${jsonArray.results[i].poster_path}" class="poster" />
+                <img src="https://image.tmdb.org/t/p/w500${movieArray.results[i].poster_path}" class="poster" />
               </div>
               <div class="ticket-container">
               <div class="ticket__content">
-                <h4 class="ticket__movie-title">${jsonArray.results[i].title}</h4>
+                <h4 class="ticket__movie-title">${movieArray.results[i].title}</h4>
                 <p class="ticket__movie-slogan">
                 </p>
               </div>
@@ -210,8 +205,8 @@
               `);
             });
           });
-       };
+      }
     </script>
-  <div id = "result" class="hero-container"></div>
+    <div id="result" class="hero-container"></div>
   </body>
 </html>
