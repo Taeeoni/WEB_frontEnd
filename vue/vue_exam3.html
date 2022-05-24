@@ -28,25 +28,10 @@
           filteredPosts: [],
         },
         created: function () {
-          //통신
-          this.getSubway();
-
           // 디바운스 적용된 검색 함수 정의
           this.debouncedSearch = _.debounce(this.search, 500);
         },
         methods: {
-          getSubway: function () {
-            let v = this;
-
-            fetch(
-              "http://swopenapi.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/0/5/"
-            )
-              .then((response) => response.json())
-              .then((subwayArray) => {
-                v.posts = subwayArray.realtimeArrivalList;
-                v.filteredPosts = subwayArray.realtimeArrivalList;
-              });
-          },
           search: function (val) {
             let v = this;
 
