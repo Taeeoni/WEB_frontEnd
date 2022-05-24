@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <span>역 이름:</span>
+      <input v-model="query" placeholder="검색어" />
+      <ul>
+        <li v-for="post in filteredPosts">
+          {{post.trainLineNm}} , {{post.arvlMsg2}}
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      let app = new Vue({
+        el: "#app",
+        data: {
+          query: "",
+          posts: [], // 전체 데이터
+          filteredPosts: [],
+        },
+        created: function () {
+          //통신
+          this.getSubway();
+
+          // 디바운스 적용된 검색 함수 정의
+          this.debouncedSearch = _.debounce(this.search, 500);
+        },
+        methods: {
+          getSubway: function () {
+            let v = this;
+
+            fetch(
+              "http://swopenapi.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/0/5/"
+            )
+              .then((response) => response.json())
+              .then((subwayArray) => {
+                v.posts = subwayArray.realtimeArrivalList;
+                v.filteredPosts = subwayArray.realtimeArrivalList;
+              });
+          },
+          search: function (val) {
+            let v = this;
+
+            fetch(
+              "http://swopenapi.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/0/5/" +
+                val
+            )
+              .then((response) => response.json())
+              .then((subwayArray) => {
+                v.filteredPosts = subwayArray.realtimeArrivalList;
+              });
+          },
+        },
+
+        watch: {
+          query: function (val) {
+            this.debouncedSearch(val);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
