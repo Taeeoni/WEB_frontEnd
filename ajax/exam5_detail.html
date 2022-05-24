@@ -135,7 +135,7 @@
         // const name = parameters.get('name');
 
         fetch(
-          "https://api.themoviedb.org/3/movie/upcoming?api_key=a64533e7ece6c72731da47c9c8bc691f&language=ko-KR&page=1"
+          `https://api.themoviedb.org/3/movie/${id}?api_key=a64533e7ece6c72731da47c9c8bc691f&language=ko-KR&page=1`
         )
           .then((response) => response.json())
           .then((movie) => {
@@ -143,21 +143,21 @@
             list.append(`
             
                 <div class="movie__hero">
-                    <img src="https://image.tmdb.org/t/p/w500${movie.results[id].poster_path}"  class="movie__img">
+                    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}"  class="movie__img">
                 </div>
                 <div class="movie__content">
                     <div class="movie__title">
-                    <h1 class="heading__primary">${movie.results[id].title}<i class="fas fa-fire"></i></h1>
-                    <div class="movie__tag movie__tag--1">★ ${movie.results[id].vote_average}</div>
-                    <div class="movie__tag movie__tag--2">&#10004 ${movie.results[id].vote_count}</div>
+                    <h1 class="heading__primary">${movie.title}<i class="fas fa-fire"></i></h1>
+                    <div class="movie__tag movie__tag--1">★ ${movie.vote_average}</div>
+                    <div class="movie__tag movie__tag--2">&#10004 ${movie.vote_count}</div>
                     </div>
                     </br>
                     <p class="movie__detail"><span class="icons icons-red"><i class="fas fa-camera-retro"></i> </span>
-                        개봉일 : ${movie.results[id].release_date}</p>
+                        개봉일 : ${movie.release_date}</p>
                     </br>
                     
                     <p class="movie__description">
-                        ${movie.results[id].overview}
+                        ${movie.overview}
                     </p>
                     
                 </div>

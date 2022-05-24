@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
+
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      background: lightblue;
+      font-family: "Roboto", sans-serif;
+      display: inline-block;
+      height: 100vh;
+    }
+
+    /* 변경하였음 */
+    /* https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox */
+    /* flex display 어떻게 행과 열을 조정하는가  */
+    .hero-container {
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .main-container {
+      width: 270px;
+      height: 540px;
+      position: relative;
+      margin: 0 20px;
+    }
+
+    .poster-container {
+      width: 230px;
+      position: absolute;
+      top: 0;
+      left: 20px;
+      z-index: 9999;
+    }
+
+    .poster {
+      width: 100%;
+      box-shadow: 0 5px 20px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    .ticket-container {
+      background: #fff;
+      width: 270px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 5px;
+      position: absolute;
+      top: 20px;
+      box-shadow: 0 5px 20px 3px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+    }
+
+    .main-container:hover .ticket-container {
+      opacity: 1;
+      animation: bounceIn 0.6s linear;
+    }
+
+    @keyframes bounceIn {
+      0%,
+      20%,
+      40%,
+      60%,
+      80%,
+      to {
+        -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+      0% {
+        opacity: 0;
+        -webkit-transform: scale3d(0.3, 0.3, 0.3);
+        transform: scale3d(0.3, 0.3, 0.3);
+      }
+      20% {
+        -webkit-transform: scale3d(1.03, 1.03, 1.03);
+        transform: scale3d(1.03, 1.03, 1.03);
+      }
+      40% {
+        -webkit-transform: scale3d(0.9, 0.9, 0.9);
+        transform: scale3d(0.9, 0.9, 0.9);
+      }
+      60% {
+        opacity: 1;
+        -webkit-transform: scale3d(1.01, 1.01, 1.01);
+        transform: scale3d(1.01, 1.01, 1.01);
+      }
+      80% {
+        -webkit-transform: scale3d(0.97, 0.97, 0.97);
+        transform: scale3d(0.97, 0.97, 0.97);
+      }
+      to {
+        opacity: 1;
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
+      }
+    }
+
+    /* @keyframes bounce {
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+} */
+
+    .ticket__content {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      text-align: center;
+    }
+
+    .ticket__movie-title {
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .ticket__movie-slogan {
+      color: #999;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .ticket__current-price {
+      color: #69c982;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    .ticket__old-price {
+      color: #999;
+      text-decoration: line-through;
+      margin-bottom: 10px;
+    }
+
+    .ticket__buy-btn {
+      cursor: pointer;
+      width: 100%;
+      background: #2f2f2f;
+      color: white;
+      padding: 15px 0;
+      font-size: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      border: 0;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+  </style>
+
+  <body>
+    <div id="app">
+      <span>영화 이름:</span>
+      <input v-model="query" placeholder="검색어" />
+      <br />
+      <br />
+      <ul class="hero-container">
+        <li v-for="movie in filteredMovies">
+          <div class="main-container" v-on:click="moveDetailPage(movie.id)">
+            <div class="poster-container">
+              <img :src="movie.poster_path" class="poster" />
+            </div>
+            <div class="ticket-container">
+              <div class="ticket__content">
+                <h4 class="ticket__movie-title">{{movie.title}}</h4>
+                <p class="ticket__movie-slogan"></p>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      let index = 0;
+      let app = new Vue({
+        el: "#app",
+        data: {
+          query: "",
+          movies: [], // 전체 데이터
+          filteredMovies: [],
+        },
+        created: function () {
+          //통신
+          this.getMovies();
+        },
+        methods: {
+          getMovies: function () {
+            let v = this;
+
+            fetch(
+              "https://api.themoviedb.org/3/movie/upcoming?api_key=a64533e7ece6c72731da47c9c8bc691f&language=ko-KR&page=1"
+            )
+              .then((response) => response.json())
+              .then((movieArray) => {
+                v.movies = movieArray.results.map(function (movie) {
+                  movie[
+                    "poster_path"
+                  ] = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+                  return movie;
+                });
+                v.filteredMovies = v.movies;
+              })
+              .catch(function (error) {
+                vm.message = "에러!! API 요청에 오류가 있습니다";
+              });
+          },
+          moveDetailPage: function (movieId) {
+            window.location.href = `../ajax/exam5_detail.html?id=${movieId}`;
+          },
+        },
+
+        watch: {
+          query: function (val) {
+            this.filteredMovies = this.movies.filter((movie) =>
+              movie.title.toLowerCase().includes(val.toLowerCase())
+            );
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
