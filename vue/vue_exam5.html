@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="todolist.css" />
+    <link rel="stylesheet" type="text/css" href="form.css" />
+    <link rel="stylesheet" type="text/css" href="todoitem.css" />
+    <meta charset="UTF-8" />
+    <title>Todo List</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app" class="todo-list-template">
+      <div class="title">오늘 할 일</div>
+
+      <section class="form-wrapper">
+        <div class="form">
+          <input v-model="newTodo" name="text" id="text" />
+          <div class="create-button" v-on:click="addTodo">추가</div>
+        </div>
+      </section>
+
+      <section class="todos-wrapper">
+        <div
+          v-for="todo in todos"
+          v-on:click="setDone(todo.id)"
+          class="todo-item"
+        >
+          <div class="remove" v-on:click="remove(todo.id)">&times;</div>
+
+          <div v-if="todo.isDone" class="todo-text checked">{{todo.text}}</div>
+          <div v-else class="todo-text">{{todo.text}}</div>
+
+          <div v-if="todo.isDone" class="check-mark">&#x2713;</div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          id: 0,
+          newTodo: "",
+          todos: [],
+        },
+        methods: {
+          setDone: function (id) {
+            this.todos = this.todos.map((e) => {
+              if (e.id == id) {
+                e.isDone = !e.isDone;
+              }
+              return e;
+            });
+          },
+          remove: function (id) {
+            this.todos = this.todos.filter((e) => e.id != id);
+          },
+          addTodo: function () {
+            this.todos.push({
+              id: this.id,
+              text: this.newTodo,
+              isDone: false,
+            });
+            this.id++;
+            this.newTodo = "";
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
