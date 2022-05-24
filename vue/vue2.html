@@ -9,8 +9,9 @@
   </head>
   <body>
     <div id="app">
+      <input v-model="query" placeholder="검색어" />
       <ul>
-        <li v-for="post in posts">{{post.title}}</li>
+        <li v-for="post in filteredPosts">{{post.title}}</li>
       </ul>
     </div>
 
@@ -18,7 +19,9 @@
       let app = new Vue({
         el: "#app",
         data: {
-          posts: [],
+          query: "", // query가 변경이 되면 얘가 포함된 애들만 필터링해보자
+          posts: [], // 전체 데이터
+          filteredPosts: [], //
         },
         created: function () {
           //통신
@@ -31,7 +34,15 @@
               .then((response) => response.json())
               .then(function (json) {
                 v.posts = json;
+                v.filteredPosts = json;
               });
+          },
+        },
+        watch: {
+          query: function (val) {
+            this.filteredPosts = this.posts.filter((post) =>
+              post.title.includes(val)
+            );
           },
         },
       });
