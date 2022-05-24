@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
   </head>
   <body>
     <div id="app">
@@ -21,11 +22,14 @@
         data: {
           query: "", // query가 변경이 되면 얘가 포함된 애들만 필터링해보자
           posts: [], // 전체 데이터
-          filteredPosts: [], //
+          filteredPosts: [],
         },
         created: function () {
           //통신
           this.getPosts();
+
+          // 디바운스 적용된 검색 함수 정의
+          this.debouncedSearch = _.debounce(this.search, 500);
         },
         methods: {
           getPosts: function () {
@@ -37,12 +41,15 @@
                 v.filteredPosts = json;
               });
           },
-        },
-        watch: {
-          query: function (val) {
+          search: function (val) {
             this.filteredPosts = this.posts.filter((post) =>
               post.title.includes(val)
             );
+          },
+        },
+        watch: {
+          query: function (val) {
+            this.debouncedSearch(val);
           },
         },
       });
