@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+    let itemName = [
+      "삼양식품(주) 불닭짬뽕 140g*4입",
+      "[냉동][태국] 노브랜드 냉동 새우살 (31-40) (450g)",
+      "[국산의힘] 고흥 미역 150g",
+      "GAP 죽장사과 4~6입/봉 (1.3kg내외)",
+      "[CJ] 고메너겟 550g",
+      "[CJ] 비비고왕교자1.12kg",
+      "일렉트로맨 UHD TV(E55KL7701)",
+      "[서울우유] 서울우유 2.3L",
+      "노브랜드 별미총각김치 1.5kg",
+      "[피코크] 샤브샤브 요리재료 870g",
+      "[피코크X도우룸] 까르보나라 파스타 679g",
+      "샘표 쓱쓱싹싹 밥도둑 메추리알장조림 150g",
+      "G)피코크 초코칩쿠키 클래식 150g",
+      "노브랜드 감자칩 오리지날 110g",
+      "크라운 국희땅콩샌드 372g(12입)",
+      "[해태] 홈런볼초코 5번들 230g",
+      "청우)쫀득초코칩240g",
+      "롯데 카스타드 2번들 460G(20입)",
+      "오리온 촉촉한초코칩 12P+4P 320G",
+      "친환경 가계 절약 양파 1kg",
+      "크리넥스 3겹 데코&소프트 30m*30롤",
+      "메디안 치석치약 오리지널 120G*3입",
+      "[피코크] 미니크로와상300g(생지)",
+      "노브랜드 피넛버터 크리미 340g",
+      "삼립 옛날밤만쥬400g",
+      "사양벌꿀 1.5kg",
+      "CJ백설매실청310ml",
+      "마시는프로틴 14입 오리지널",
+      "노브랜드 국산콩 콩나물 300g",
+      "세척당근(봉)",
+      "오뚜기 진라면 매운맛 120g*5입",
+    ];
+    let price = [
+      4480, 12800, 4280, 7900, 8980, 9980, 15490000, 6350, 11780, 9980, 13800,
+      2980, 1480, 890, 3840, 5980, 4980, 6980, 3840, 3480, 23478, 9900, 5980,
+      2980, 3980, 12800, 4980, 12800, 1280, 3980, 3100,
+    ];
+
+    let amout = [
+      5, 1, 3, 1, 2, 4, 2, 1, 5, 1, 2, 1, 5, 8, 15, 2, 3, 3, 4, 1, 1, 10, 3, 3,
+      1, 1, 2, 1, 2, 6, 2,
+    ];
+
+    let taxFree = [
+      false,
+      false,
+      true,
+      true,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      false,
+    ];
+
+    for (let i = 0; i < itemName.length; i++) {
+      if (taxFree == true) {
+        itemName[i] = "* " + itemName[i];
+      } else {
+        itemName[i] = "  " + itemName[i];
+      }
+
+      let stringByte = ~-encodeURI(itemName[i]).split(/%..|./).length;
+
+      if (stringByte.length <= 17) {
+        while (stringByte.length < 17) {
+          itemName[i] += " ";
+          let stringByte = ~-encodeURI(itemName[i]).split(/%..|./).length;
+        }
+      } else {
+        let byteCount = 0;
+        let newName = "";
+      }
+    }
+    function header() {
+      document.write("<table>");
+      document.write(" emart  이마트 죽전점 (031)888-1234</br>");
+      document.write(" emart   206-86-50913 강희석</br>");
+      document.write(" emart  용인 수지구 포은대로 552</br>");
+    }
+  </script>
+
+  <body>
+    <script>
+      header();
+    </script>
+  </body>
+</html>
