@@ -5,9 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
   </head>
   <script>
-    let itemName = [
+
+    
+    function header() {
+
+      document.write("<table border = 1px solid black>")
+      document.write("<tr><td colspan='2' rowspan='3' id ='emart'> emart </td><td>이마트 죽전점 (031)888-1234 </td></tr>");
+      document.write("<tr><td> 206-86-50913 강희석  </td></tr>");
+      document.write("<tr><td> 용인 수지구 포은대로 552 </td></tr>");
+      document.write("</table>")
+      document.write("</br>")
+      document.write("<table border = 1px solid black>")
+      document.write("<tr><td colspan='4'>영수증 미지참시 교환/환불 불가</td></tr>");
+      document.write("<tr><td colspan='4'>정상상품에 한함, 30일 이내(신선 7일)</td></tr>");
+      document.write("<tr><td colspan='4'>※일부 브랜드매장 제외(매장 고지물참조)</td></tr>");
+      document.write("<tr><td colspan='4'>교환/환불 구매점에서 가능(결제카드 지참)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td></tr>");
+      document.write("<tr><td colspan='3'>[구 매] " + moment(Date()).format('YYYY-MM-DD hh:mm') + "</td><td id ='right'>POS:0011-9861</td></tr>");
+      document.write("</table>")
+
+    }
+
+    function item(){
+      
+      let itemName = [
       "삼양식품(주) 불닭짬뽕 140g*4입",
       "[냉동][태국] 노브랜드 냉동 새우살 (31-40) (450g)",
       "[국산의힘] 고흥 미역 150g",
@@ -39,19 +62,19 @@
       "노브랜드 국산콩 콩나물 300g",
       "세척당근(봉)",
       "오뚜기 진라면 매운맛 120g*5입",
-    ];
-    let price = [
+      ];
+      let price = [
       4480, 12800, 4280, 7900, 8980, 9980, 15490000, 6350, 11780, 9980, 13800,
       2980, 1480, 890, 3840, 5980, 4980, 6980, 3840, 3480, 23478, 9900, 5980,
       2980, 3980, 12800, 4980, 12800, 1280, 3980, 3100,
-    ];
-
-    let amout = [
+      ];
+      
+     let amount = [
       5, 1, 3, 1, 2, 4, 2, 1, 5, 1, 2, 1, 5, 8, 15, 2, 3, 3, 4, 1, 1, 10, 3, 3,
       1, 1, 2, 1, 2, 6, 2,
-    ];
+      ];
 
-    let taxFree = [
+     let taxFree = [
       false,
       false,
       true,
@@ -83,38 +106,84 @@
       true,
       true,
       false,
-    ];
-
-    for (let i = 0; i < itemName.length; i++) {
-      if (taxFree == true) {
-        itemName[i] = "* " + itemName[i];
-      } else {
-        itemName[i] = "  " + itemName[i];
-      }
-
-      let stringByte = ~-encodeURI(itemName[i]).split(/%..|./).length;
-
-      if (stringByte.length <= 17) {
-        while (stringByte.length < 17) {
-          itemName[i] += " ";
-          let stringByte = ~-encodeURI(itemName[i]).split(/%..|./).length;
+      ];
+     
+      document.write("<table border = 1px solid black>");
+      document.write("<tr><td colspan='30'>------------------------------------------------------------</td></tr>");
+      document.write("<tr><td></td><td colspan='12'>상품명</td><td colspan='7'> 단가</td><td colspan='2'>수량</td><td colspan='8'>금액</td></tr>");
+      document.write("<tr><td colspan='30'>------------------------------------------------------------</td></tr>");
+      
+      let checkTax = "";
+      let sumPrice = "";
+      let VAT = "";
+      let countLine= 0;
+      for (let i = 0; i < itemName.length; i++) {
+        if (taxFree[i] == true) {
+          checkTax = "*&nbsp"
+        } else {
+          checkTax = ""
         }
-      } else {
-        let byteCount = 0;
+
         let newName = "";
+
+        if (itemName[i].length <= 13){
+          while(itemName[i].length < 13){
+            itemName[i] += "&nbsp";
+          }
+        } else{
+          for(let j = 0; j < 13; j++){
+            newName += itemName[i].charAt(j);
+          }
+          itemName[i] = newName;
+          
+        }
+      
+        document.write("<tr><td>" + checkTax + "</td><td colspan='12'>" + itemName[i] + "</td><td colspan='7'>" + price[i] + "</td><td colspan='2'>" 
+          + amount[i] + "</td><td colspan='8'>" + price[i] * amount[i] +"</td></tr>");
+        
+        if(taxFree[i] == true){
+          sumprice += price[i] * amount[i];
+        } else{
+          VAT += price[i] * amount[i];
+        }
+
+        countLine += 1;
+
+        if(countLine % 5 == 0){
+          document.write("<tr><td colspan='30'>------------------------------------------------------------</td></tr>");
+        }
       }
+    document.write("<tr><td colspan='30'>------------------------------------------------------------</td></tr>");
+    document.write("</table>")
+  }
+
+  function priceCalc(){
+    if(VAT != 0){
+    VAT = VAT / 11 + 1;
     }
-    function header() {
-      document.write("<table>");
-      document.write(" emart  이마트 죽전점 (031)888-1234</br>");
-      document.write(" emart   206-86-50913 강희석</br>");
-      document.write(" emart  용인 수지구 포은대로 552</br>");
-    }
+
+  }
+
   </script>
+
+<style>
+  #emart{
+    padding-left: 70px;
+    padding-right: 70px;
+  }
+
+  #right{
+    text-align: right;
+  }
+
+</style>
+
 
   <body>
     <script>
       header();
+      item();
+      priceCalc();
     </script>
   </body>
 </html>
