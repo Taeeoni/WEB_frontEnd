@@ -9,6 +9,7 @@
   </head>
   <script>
     function header() {
+      //영수증 앞부분 출력 - table 2개
       document.write("<table>");
       document.write(
         "<tr><td colspan='2' rowspan='3' id ='emart'> emart </td><td>이마트 죽전점 (031)888-1234 </td></tr>"
@@ -16,7 +17,7 @@
       document.write("<tr><td> 206-86-50913 강희석  </td></tr>");
       document.write("<tr><td> 용인 수지구 포은대로 552 </td></tr>");
       document.write("</table>");
-      document.write("</br>");
+      document.write("</br>"); // newline 해주기 위해 table 종료 후 br 추가
       document.write("<table>");
       document.write(
         "<tr><td colspan='4'>영수증 미지참시 교환/환불 불가</td></tr>"
@@ -30,20 +31,42 @@
       document.write(
         "<tr><td colspan='4'>교환/환불 구매점에서 가능(결제카드 지참)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td></tr>"
       );
+      document.write("</table>");
+      document.write("</br>");
+      document.write("<table>");
       document.write(
         "<tr><td colspan='3'>[구 매] " +
-          moment(Date()).format("YYYY-MM-DD hh:mm") +
+          moment(Date()).format("YYYY-MM-DD hh:mm") + // dateformat을 지정하기위해 moment라는 cdn을 받아서 날짜출력을 포멧에 맞춰 출력
           "</td><td id ='right'>POS:0011-9861</td></tr>"
       );
       document.write("</table>");
     }
 
-    let sumPrice = 0;
-    let VAT = 0;
-    let sumTaxFree = 0;
+    let sumPrice = 0; // 과세물품의 합
+    let sumTaxFree = 0; // 면세물품의 합
+    let VAT = 0; // 과세물품에 대한 부가세
+
+    function cutByteLength(s, len) {
+      // byte단위로 length 자르기 function
+      //글자와 잘라야하는 byte (len) 를 파라미터로 받는다.
+      let byte = 0; //byte
+      let newString = ""; //자른 string을 넣어줄 변수
+      for (let i = 0; i < s.length; i++) {
+        //글자수만큼 반복
+        byte = ~-encodeURI(newString).split(/%..|./).length; // 한글자 한글자 newString에 넣으면서 byte수를 계산
+        newString += s.charAt(i);
+        if (byte > len) {
+          // 만약 자르고자하는 byte보다 크다면
+          break; // for문 break
+        }
+      }
+
+      return newString.substring(0, newString.length - 1); // byte가 len보다 커진상태 이므로 substring을 통해 -1 해준다.
+    }
 
     function calc() {
       let itemName = [
+        // 상품이름
         "삼양식품(주) 불닭짬뽕 140g*4입",
         "[냉동][태국] 노브랜드 냉동 새우살 (31-40) (450g)",
         "[국산의힘] 고흥 미역 150g",
@@ -77,17 +100,20 @@
         "오뚜기 진라면 매운맛 120g*5입",
       ];
       let price = [
+        //상품 가격
         4480, 12800, 4280, 7900, 8980, 9980, 15490000, 6350, 11780, 9980, 13800,
         2980, 1480, 890, 3840, 5980, 4980, 6980, 3840, 3480, 23478, 9900, 5980,
         2980, 3980, 12800, 4980, 12800, 1280, 3980, 3100,
       ];
 
       let amount = [
+        // 구매량
         5, 1, 3, 1, 2, 4, 2, 1, 5, 1, 2, 1, 5, 8, 15, 2, 3, 3, 4, 1, 1, 10, 3,
         3, 1, 1, 2, 1, 2, 6, 2,
       ];
 
       let taxFree = [
+        //면세여부
         false,
         false,
         true,
@@ -121,11 +147,12 @@
         false,
       ];
 
-      document.write("<table >");
+      document.write("<table >"); // 구매물품에 대한 정보 table
       document.write(
         "<tr><td colspan='30'>------------------------------------------------------------</td></tr>"
       );
       document.write(
+        // 필드명 출력
         "<tr><td></td><td colspan='12'>상 품 명</td><td colspan='7' id='center'> 단 가</td><td colspan='2'>수량</td><td colspan='8' id='right'>금 액</td></tr>"
       );
       document.write(
@@ -135,110 +162,111 @@
       let checkTax = "";
 
       let countLine = 0;
+
       for (let i = 0; i < itemName.length; i++) {
+        // 면세물품인 경우 * 붙이고 아니라면 빈칸
         if (taxFree[i] == true) {
-          checkTax = "*&nbsp";
+          checkTax = "*&nbsp"; // '* ' 붙여준다.
         } else {
           checkTax = "";
         }
-
-        let newName = "";
-
-        if (itemName[i].length <= 12) {
-          while (itemName[i].length < 12) {
-            itemName[i] += "&nbsp";
-          }
+        // encodeURI로 문자열 byte 계산
+        let byte = ~-encodeURI(itemName[i]).split(/%..|./).length;
+        console.log(byte);
+        if (byte <= 25) {
         } else {
-          for (let j = 0; j < 12; j++) {
-            newName += itemName[i].charAt(j);
-          }
-          itemName[i] = newName;
+          // byte가 초과하는 경우 cut 하는 함수실행
+          itemName[i] = cutByteLength(itemName[i], 25);
         }
 
         document.write(
+          // 상품에대한 정보들 출력
           "<tr><td>" +
             checkTax +
             "</td><td colspan='12'>" +
-            itemName[i] +
+            itemName[i] + //상품 이름
             "</td><td colspan='7' id='right'>" +
-            new Intl.NumberFormat().format(price[i]) +
+            //숫자 3자리마다 콤마를 찍어주기 위해서 Intl.NumberFormat().format()을 사용하였다.
+            new Intl.NumberFormat().format(price[i]) + //개당 가격
             "</td><td colspan='2' id='right'>" +
-            amount[i] +
+            amount[i] + // 구매 개수
             "</td><td colspan='8' id='right'>" +
-            new Intl.NumberFormat().format(price[i] * amount[i]) +
+            new Intl.NumberFormat().format(price[i] * amount[i]) + // 합 가격
             "</td></tr>"
         );
 
         if (taxFree[i] == true) {
+          // 면세 제품과 과세 제품의 합을 따로 구분하기 위한 if 문
           sumTaxFree += price[i] * amount[i];
         } else {
           sumPrice += price[i] * amount[i];
         }
 
-        countLine += 1;
+        countLine += 1; //제품을 몇개째 읽고있는가 알기 위한 변수
 
         if (countLine % 5 == 0) {
+          // 5개 제품마다 구분선
           document.write(
             "<tr><td colspan='30'>------------------------------------------------------------</td></tr>"
           );
         }
       }
-      document.write(
-        "<tr><td colspan='30'>------------------------------------------------------------</td></tr>"
-      );
-      document.write("</table>");
 
-      if (sumTaxFree != 0) {
-        VAT = sumPrice / 11 + 1;
+      document.write("</table>"); //상품 정보 table 닫기
+      document.write("</br>"); // new line
+
+      if (sumPrice != 0) {
+        // 과세제품이 0원이 아닌이상 vat 발생
+        VAT = sumPrice / 11 + 1; // 부가세 계산
       }
 
-      document.write("<table>");
+      document.write("<table>"); // 수량, 면세, 과세, 총가격 에 대한 table
       document.write(
         "<tr><td colspan = '3' id='right' class ='result'></td><td >총 품목 수량</td><td id='right'>" +
-          itemName.length +
+          itemName.length + // 총 수량
           "</td></tr>"
       );
       document.write(
         "<tr><td colspan = '3' id='right' class ='result'>(*)</td><td id ='result'>면 세 &nbsp&nbsp물 품</td><td id='right'>" +
-          new Intl.NumberFormat().format(parseInt(sumTaxFree)) +
+          new Intl.NumberFormat().format(parseInt(sumTaxFree)) + // 면세 가격
           "</td></tr>"
       );
       document.write(
-        "<tr><td colspan = '3' id='right' class ='result'>(*)</td><td id ='result'>과 세 &nbsp&nbsp물 품</td><td id='right'>" +
+        "<tr><td colspan = '3' id='right' class ='result'></td><td id ='result'>과 세 &nbsp&nbsp물 품</td><td id='right'>" +
           new Intl.NumberFormat().format(
-            parseInt((parseInt(sumPrice) * 10) / 11)
+            parseInt((parseInt(sumPrice) * 10) / 11) // 과세 가격
           ) +
           "</td></tr>"
       );
       document.write(
-        "<tr><td colspan = '3' id='right' class ='result'>(*)</td><td id ='result'>부 &nbsp&nbsp&nbsp가&nbsp&nbsp &nbsp세</td><td id='right'>" +
-          new Intl.NumberFormat().format(parseInt(VAT)) +
+        "<tr><td colspan = '3' id='right' class ='result'></td><td id ='result'>부 &nbsp&nbsp&nbsp가&nbsp&nbsp &nbsp세</td><td id='right'>" +
+          new Intl.NumberFormat().format(parseInt(VAT)) + // 부가세
           "</td></tr>"
       );
       document.write(
-        "<tr><td colspan = '3' id='right' class ='result'>(*)</td><td id ='result'>합 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp계</td><td id='right'>" +
-          new Intl.NumberFormat().format(parseInt(sumPrice + sumTaxFree)) +
+        "<tr><td colspan = '3' id='right' class ='result'></td><td id ='result'>합 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp계</td><td id='right'>" +
+          new Intl.NumberFormat().format(parseInt(sumPrice + sumTaxFree)) + // 면세 + 과세
           "</td></tr>"
       );
       document.write(
         "<tr><td colspan = '4' class='padding2'>결 제 대 상 금 액</td><td id='right' class='padding1'>" +
-          new Intl.NumberFormat().format(parseInt(sumPrice + sumTaxFree)) +
+          new Intl.NumberFormat().format(parseInt(sumPrice + sumTaxFree)) + // 면세 + 과세
           "</td></tr>"
       );
       document.write("</table>");
     }
 
     function tail() {
-      document.write("<table>");
+      document.write("<table>"); // 영수증 뒷부분 table
       document.write(
         "<tr><td colspan='4'>------------------------------------------------------------</td></tr>"
       );
       document.write(
-        "<tr><td colspan='3' class='tailpad1'>0012 KEB 하나</td><td>541707**0484/35860658</td></tr>"
+        "<tr><td colspan='3' class='tailpad1'>0012 KEB 하나</td><td>541707**0484/35860658</td></tr>" // 카드정보
       );
       document.write(
         "<tr><td colspan='3' class='tailpad1'>카드결제(IC)</td><td id = 'right'>일시불 / " +
-          new Intl.NumberFormat().format(parseInt(sumPrice + sumTaxFree)) +
+          new Intl.NumberFormat().format(parseInt(sumPrice + sumTaxFree)) + // 면세 + 과세
           "</td></tr>"
       );
       document.write(
@@ -248,13 +276,13 @@
         "<tr><td colspan='4' id ='center'>[신세계포인트 적립]</td></tr>"
       );
       document.write(
-        "<tr><td colspan='4'>김*언 고객님의 포인트 현황입니다.</td></tr>"
+        "<tr><td colspan='4'>김*언 고객님의 포인트 현황입니다.</td></tr>" // 고객 이름
       );
       document.write(
-        "<tr><td colspan='3' >금회발생포인트</td><td id='right'>9350**9995&nbsp&nbsp&nbsp&nbsp&nbsp 164</td></tr>"
+        "<tr><td colspan='3' >금회발생포인트</td><td id='right'>9350**9995&nbsp&nbsp&nbsp&nbsp&nbsp 164</td></tr>" // 포인트 생성 금액
       );
       document.write(
-        "<tr><td colspan='3'>누계(가용)포인트</td><td id='right'>5,637(&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp5,473)</td></tr>"
+        "<tr><td colspan='3'>누계(가용)포인트</td><td id='right'>5,637(&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp5,473)</td></tr>" // 가용포인트
       );
       document.write(
         "<tr><td colspan='4'>*신세계포인트 유효기간은 2년입니다.</td></tr>"
@@ -266,10 +294,10 @@
         "<tr><td colspan='4' id ='center'>구매금액기준 무료주차시간 자동부여</td></tr>"
       );
       document.write(
-        "<tr><td colspan='3'>차량번호 :</td><td id='right'>34저****</td></tr>"
+        "<tr><td colspan='3'>차량번호 :</td><td id='right'>34저****</td></tr>" // 차량정보
       );
       document.write(
-        "<tr><td colspan='3'>입차시간 :</td><td id ='right'>" +
+        "<tr><td colspan='3'>입차시간 :</td><td id ='right'>" + //입차시간 , moment를 통해 실습에서는 현재시간을 입력
           moment(Date()).format("YYYY-MM-DD hh:mm:ss") +
           "</td></tr>"
       );
@@ -277,8 +305,9 @@
         "<tr><td colspan='4'>------------------------------------------------------------</td></tr>"
       );
       document.write(
-        "<tr><td colspan='3'>캐셔: 084599 양00</td><td id='right'>1150</td></tr>"
+        "<tr><td colspan='3'>캐셔: 084599 양00</td><td id='right'>1150</td></tr>" // 캐셔정보
       );
+      //바코드
       document.write(
         "<tr><td colspan='4' id='center'>|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</td></tr>"
       );
@@ -287,7 +316,7 @@
       );
       document.write(
         "<tr><td colspan='4' id ='center'>" +
-          moment(Date()).format("YYYYMMDD") +
+          moment(Date()).format("YYYYMMDD") + //날짜 + 영수증정보번호
           "/00119861/00164980/31</td></tr>"
       );
       document.write("</table>");

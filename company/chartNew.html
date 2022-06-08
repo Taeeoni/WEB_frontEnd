@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>ChartNew</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js">
+      //차트를 그리기 위한 cdn
+    </script>
+  </head>
+  <body>
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+      let datas = []; // 점수들
+      let names = []; // 이름들
+
+      for (let i = 0; i < 20; i++) {
+        // 20명의 점수를 생성
+        //random 한 수를 넣기 위해 math.random
+        //floor - 반올림
+        datas.push(Math.floor(Math.random() * 100)); // 점수를 push !
+        names.push(`홍길${(i + 1 + "").padStart(2, "0")}`); // 학생이름을 push!
+      }
+      const data = {
+        // 그래프에 들어갈 정보들 + 디자인
+        labels: names, // 그래프 가로축 - 이름
+        datasets: [
+          {
+            label: "점수 그래프",
+            data: datas, // 각각의 점수들
+            backgroundColor: [
+              "rgba(255, 99, 132)",
+              "rgba(255, 205, 86)",
+              "rgba(75, 192, 192)",
+              "rgba(54, 162, 235)",
+              "rgba(153, 102, 255)",
+            ], // 막대그래프 색
+            borderColor: [
+              "rgb(255, 99, 132)",
+              "rgb(255, 205, 86)",
+              "rgb(75, 192, 192)",
+              "rgb(54, 162, 235)",
+              "rgb(153, 102, 255)",
+            ], // 막대그래프 테두리색
+            borderWidth: 1, // 막대 길이
+          },
+        ],
+      };
+      const config = {
+        type: "bar", // 그래프 타입 - bar
+        data: data, // 들어갈 요소들 - data
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true, // 0부터 시작
+            },
+          },
+        },
+      };
+
+      const myChart = new Chart(document.getElementById("myChart"), config);
+    </script>
+  </body>
+</html>
