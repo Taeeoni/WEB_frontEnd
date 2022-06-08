@@ -36,8 +36,8 @@
       document.write("<table>");
       document.write(
         "<tr><td colspan='3'>[구 매] " +
-          moment(Date()).format("YYYY-MM-DD hh:mm") + // dateformat을 지정하기위해 moment라는 cdn을 받아서 날짜출력을 포멧에 맞춰 출력
-          "</td><td id ='right'>POS:0011-9861</td></tr>"
+          moment(Date()).format("YYYY-MM-DD HH:mm") + // dateformat을 지정하기위해 moment라는 cdn을 받아서 날짜출력을 포멧에 맞춰 출력
+          "</td><td id ='right' class='padding3'>POS:0011-9861</td></tr>"
       );
       document.write("</table>");
     }
@@ -298,7 +298,7 @@
       );
       document.write(
         "<tr><td colspan='3'>입차시간 :</td><td id ='right'>" + //입차시간 , moment를 통해 실습에서는 현재시간을 입력
-          moment(Date()).format("YYYY-MM-DD hh:mm:ss") +
+          moment(Date()).format("YYYY-MM-DD HH:mm:ss") +
           "</td></tr>"
       );
       document.write(
@@ -347,6 +347,10 @@
 
     .padding2 {
       padding-left: 33px;
+    }
+
+    .padding3 {
+      padding-left: 100px;
     }
 
     .tailpad1 {
