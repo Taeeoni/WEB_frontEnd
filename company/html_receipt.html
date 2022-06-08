@@ -8,182 +8,332 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
   </head>
   <script>
-
-    
     function header() {
-
-      document.write("<table border = 1px solid black>")
-      document.write("<tr><td colspan='2' rowspan='3' id ='emart'> emart </td><td>이마트 죽전점 (031)888-1234 </td></tr>");
+      document.write("<table>");
+      document.write(
+        "<tr><td colspan='2' rowspan='3' id ='emart'> emart </td><td>이마트 죽전점 (031)888-1234 </td></tr>"
+      );
       document.write("<tr><td> 206-86-50913 강희석  </td></tr>");
       document.write("<tr><td> 용인 수지구 포은대로 552 </td></tr>");
-      document.write("</table>")
-      document.write("</br>")
-      document.write("<table border = 1px solid black>")
-      document.write("<tr><td colspan='4'>영수증 미지참시 교환/환불 불가</td></tr>");
-      document.write("<tr><td colspan='4'>정상상품에 한함, 30일 이내(신선 7일)</td></tr>");
-      document.write("<tr><td colspan='4'>※일부 브랜드매장 제외(매장 고지물참조)</td></tr>");
-      document.write("<tr><td colspan='4'>교환/환불 구매점에서 가능(결제카드 지참)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td></tr>");
-      document.write("<tr><td colspan='3'>[구 매] " + moment(Date()).format('YYYY-MM-DD hh:mm') + "</td><td id ='right'>POS:0011-9861</td></tr>");
-      document.write("</table>")
-
+      document.write("</table>");
+      document.write("</br>");
+      document.write("<table>");
+      document.write(
+        "<tr><td colspan='4'>영수증 미지참시 교환/환불 불가</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='4'>정상상품에 한함, 30일 이내(신선 7일)</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='4'>※일부 브랜드매장 제외(매장 고지물참조)</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='4'>교환/환불 구매점에서 가능(결제카드 지참)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='3'>[구 매] " +
+          moment(Date()).format("YYYY-MM-DD hh:mm") +
+          "</td><td id ='right'>POS:0011-9861</td></tr>"
+      );
+      document.write("</table>");
     }
 
-    function item(){
-      
+    let sumPrice = 0;
+    let VAT = 0;
+    let sumTaxFree = 0;
+
+    function calc() {
       let itemName = [
-      "삼양식품(주) 불닭짬뽕 140g*4입",
-      "[냉동][태국] 노브랜드 냉동 새우살 (31-40) (450g)",
-      "[국산의힘] 고흥 미역 150g",
-      "GAP 죽장사과 4~6입/봉 (1.3kg내외)",
-      "[CJ] 고메너겟 550g",
-      "[CJ] 비비고왕교자1.12kg",
-      "일렉트로맨 UHD TV(E55KL7701)",
-      "[서울우유] 서울우유 2.3L",
-      "노브랜드 별미총각김치 1.5kg",
-      "[피코크] 샤브샤브 요리재료 870g",
-      "[피코크X도우룸] 까르보나라 파스타 679g",
-      "샘표 쓱쓱싹싹 밥도둑 메추리알장조림 150g",
-      "G)피코크 초코칩쿠키 클래식 150g",
-      "노브랜드 감자칩 오리지날 110g",
-      "크라운 국희땅콩샌드 372g(12입)",
-      "[해태] 홈런볼초코 5번들 230g",
-      "청우)쫀득초코칩240g",
-      "롯데 카스타드 2번들 460G(20입)",
-      "오리온 촉촉한초코칩 12P+4P 320G",
-      "친환경 가계 절약 양파 1kg",
-      "크리넥스 3겹 데코&소프트 30m*30롤",
-      "메디안 치석치약 오리지널 120G*3입",
-      "[피코크] 미니크로와상300g(생지)",
-      "노브랜드 피넛버터 크리미 340g",
-      "삼립 옛날밤만쥬400g",
-      "사양벌꿀 1.5kg",
-      "CJ백설매실청310ml",
-      "마시는프로틴 14입 오리지널",
-      "노브랜드 국산콩 콩나물 300g",
-      "세척당근(봉)",
-      "오뚜기 진라면 매운맛 120g*5입",
+        "삼양식품(주) 불닭짬뽕 140g*4입",
+        "[냉동][태국] 노브랜드 냉동 새우살 (31-40) (450g)",
+        "[국산의힘] 고흥 미역 150g",
+        "GAP 죽장사과 4~6입/봉 (1.3kg내외)",
+        "[CJ] 고메너겟 550g",
+        "[CJ] 비비고왕교자1.12kg",
+        "일렉트로맨 UHD TV(E55KL7701)",
+        "[서울우유] 서울우유 2.3L",
+        "노브랜드 별미총각김치 1.5kg",
+        "[피코크] 샤브샤브 요리재료 870g",
+        "[피코크X도우룸] 까르보나라 파스타 679g",
+        "샘표 쓱쓱싹싹 밥도둑 메추리알장조림 150g",
+        "G)피코크 초코칩쿠키 클래식 150g",
+        "노브랜드 감자칩 오리지날 110g",
+        "크라운 국희땅콩샌드 372g(12입)",
+        "[해태] 홈런볼초코 5번들 230g",
+        "청우)쫀득초코칩240g",
+        "롯데 카스타드 2번들 460G(20입)",
+        "오리온 촉촉한초코칩 12P+4P 320G",
+        "친환경 가계 절약 양파 1kg",
+        "크리넥스 3겹 데코&소프트 30m*30롤",
+        "메디안 치석치약 오리지널 120G*3입",
+        "[피코크] 미니크로와상300g(생지)",
+        "노브랜드 피넛버터 크리미 340g",
+        "삼립 옛날밤만쥬400g",
+        "사양벌꿀 1.5kg",
+        "CJ백설매실청310ml",
+        "마시는프로틴 14입 오리지널",
+        "노브랜드 국산콩 콩나물 300g",
+        "세척당근(봉)",
+        "오뚜기 진라면 매운맛 120g*5입",
       ];
       let price = [
-      4480, 12800, 4280, 7900, 8980, 9980, 15490000, 6350, 11780, 9980, 13800,
-      2980, 1480, 890, 3840, 5980, 4980, 6980, 3840, 3480, 23478, 9900, 5980,
-      2980, 3980, 12800, 4980, 12800, 1280, 3980, 3100,
-      ];
-      
-     let amount = [
-      5, 1, 3, 1, 2, 4, 2, 1, 5, 1, 2, 1, 5, 8, 15, 2, 3, 3, 4, 1, 1, 10, 3, 3,
-      1, 1, 2, 1, 2, 6, 2,
+        4480, 12800, 4280, 7900, 8980, 9980, 15490000, 6350, 11780, 9980, 13800,
+        2980, 1480, 890, 3840, 5980, 4980, 6980, 3840, 3480, 23478, 9900, 5980,
+        2980, 3980, 12800, 4980, 12800, 1280, 3980, 3100,
       ];
 
-     let taxFree = [
-      false,
-      false,
-      true,
-      true,
-      false,
-      false,
-      false,
-      true,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      true,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      true,
-      true,
-      false,
+      let amount = [
+        5, 1, 3, 1, 2, 4, 2, 1, 5, 1, 2, 1, 5, 8, 15, 2, 3, 3, 4, 1, 1, 10, 3,
+        3, 1, 1, 2, 1, 2, 6, 2,
       ];
-     
-      document.write("<table border = 1px solid black>");
-      document.write("<tr><td colspan='30'>------------------------------------------------------------</td></tr>");
-      document.write("<tr><td></td><td colspan='12'>상품명</td><td colspan='7'> 단가</td><td colspan='2'>수량</td><td colspan='8'>금액</td></tr>");
-      document.write("<tr><td colspan='30'>------------------------------------------------------------</td></tr>");
-      
+
+      let taxFree = [
+        false,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false,
+      ];
+
+      document.write("<table >");
+      document.write(
+        "<tr><td colspan='30'>------------------------------------------------------------</td></tr>"
+      );
+      document.write(
+        "<tr><td></td><td colspan='12'>상 품 명</td><td colspan='7' id='center'> 단 가</td><td colspan='2'>수량</td><td colspan='8' id='right'>금 액</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='30'>------------------------------------------------------------</td></tr>"
+      );
+
       let checkTax = "";
-      let sumPrice = "";
-      let VAT = "";
-      let countLine= 0;
+
+      let countLine = 0;
       for (let i = 0; i < itemName.length; i++) {
         if (taxFree[i] == true) {
-          checkTax = "*&nbsp"
+          checkTax = "*&nbsp";
         } else {
-          checkTax = ""
+          checkTax = "";
         }
 
         let newName = "";
 
-        if (itemName[i].length <= 13){
-          while(itemName[i].length < 13){
+        if (itemName[i].length <= 12) {
+          while (itemName[i].length < 12) {
             itemName[i] += "&nbsp";
           }
-        } else{
-          for(let j = 0; j < 13; j++){
+        } else {
+          for (let j = 0; j < 12; j++) {
             newName += itemName[i].charAt(j);
           }
           itemName[i] = newName;
-          
         }
-      
-        document.write("<tr><td>" + checkTax + "</td><td colspan='12'>" + itemName[i] + "</td><td colspan='7'>" + price[i] + "</td><td colspan='2'>" 
-          + amount[i] + "</td><td colspan='8'>" + price[i] * amount[i] +"</td></tr>");
-        
-        if(taxFree[i] == true){
-          sumprice += price[i] * amount[i];
-        } else{
-          VAT += price[i] * amount[i];
+
+        document.write(
+          "<tr><td>" +
+            checkTax +
+            "</td><td colspan='12'>" +
+            itemName[i] +
+            "</td><td colspan='7' id='right'>" +
+            new Intl.NumberFormat().format(price[i]) +
+            "</td><td colspan='2' id='right'>" +
+            amount[i] +
+            "</td><td colspan='8' id='right'>" +
+            new Intl.NumberFormat().format(price[i] * amount[i]) +
+            "</td></tr>"
+        );
+
+        if (taxFree[i] == true) {
+          sumTaxFree += price[i] * amount[i];
+        } else {
+          sumPrice += price[i] * amount[i];
         }
 
         countLine += 1;
 
-        if(countLine % 5 == 0){
-          document.write("<tr><td colspan='30'>------------------------------------------------------------</td></tr>");
+        if (countLine % 5 == 0) {
+          document.write(
+            "<tr><td colspan='30'>------------------------------------------------------------</td></tr>"
+          );
         }
       }
-    document.write("<tr><td colspan='30'>------------------------------------------------------------</td></tr>");
-    document.write("</table>")
-  }
+      document.write(
+        "<tr><td colspan='30'>------------------------------------------------------------</td></tr>"
+      );
+      document.write("</table>");
 
-  function priceCalc(){
-    if(VAT != 0){
-    VAT = VAT / 11 + 1;
+      if (sumTaxFree != 0) {
+        VAT = sumPrice / 11 + 1;
+      }
+
+      document.write("<table>");
+      document.write(
+        "<tr><td colspan = '3' id='right' class ='result'></td><td >총 품목 수량</td><td id='right'>" +
+          itemName.length +
+          "</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan = '3' id='right' class ='result'>(*)</td><td id ='result'>면 세 &nbsp&nbsp물 품</td><td id='right'>" +
+          new Intl.NumberFormat().format(parseInt(sumTaxFree)) +
+          "</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan = '3' id='right' class ='result'>(*)</td><td id ='result'>과 세 &nbsp&nbsp물 품</td><td id='right'>" +
+          new Intl.NumberFormat().format(
+            parseInt((parseInt(sumPrice) * 10) / 11)
+          ) +
+          "</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan = '3' id='right' class ='result'>(*)</td><td id ='result'>부 &nbsp&nbsp&nbsp가&nbsp&nbsp &nbsp세</td><td id='right'>" +
+          new Intl.NumberFormat().format(parseInt(VAT)) +
+          "</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan = '3' id='right' class ='result'>(*)</td><td id ='result'>합 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp계</td><td id='right'>" +
+          new Intl.NumberFormat().format(parseInt(sumPrice + sumTaxFree)) +
+          "</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan = '4' class='padding2'>결 제 대 상 금 액</td><td id='right' class='padding1'>" +
+          new Intl.NumberFormat().format(parseInt(sumPrice + sumTaxFree)) +
+          "</td></tr>"
+      );
+      document.write("</table>");
     }
 
-  }
-
+    function tail() {
+      document.write("<table>");
+      document.write(
+        "<tr><td colspan='4'>------------------------------------------------------------</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='3' class='tailpad1'>0012 KEB 하나</td><td>541707**0484/35860658</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='3' class='tailpad1'>카드결제(IC)</td><td id = 'right'>일시불 / " +
+          new Intl.NumberFormat().format(parseInt(sumPrice + sumTaxFree)) +
+          "</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='4'>------------------------------------------------------------</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='4' id ='center'>[신세계포인트 적립]</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='4'>김*언 고객님의 포인트 현황입니다.</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='3' >금회발생포인트</td><td id='right'>9350**9995&nbsp&nbsp&nbsp&nbsp&nbsp 164</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='3'>누계(가용)포인트</td><td id='right'>5,637(&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp5,473)</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='4'>*신세계포인트 유효기간은 2년입니다.</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='4'>------------------------------------------------------------</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='4' id ='center'>구매금액기준 무료주차시간 자동부여</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='3'>차량번호 :</td><td id='right'>34저****</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='3'>입차시간 :</td><td id ='right'>" +
+          moment(Date()).format("YYYY-MM-DD hh:mm:ss") +
+          "</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='4'>------------------------------------------------------------</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='3'>캐셔: 084599 양00</td><td id='right'>1150</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='4' id='center'>|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='4' id='center'>|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</td></tr>"
+      );
+      document.write(
+        "<tr><td colspan='4' id ='center'>" +
+          moment(Date()).format("YYYYMMDD") +
+          "/00119861/00164980/31</td></tr>"
+      );
+      document.write("</table>");
+    }
   </script>
 
-<style>
-  #emart{
-    padding-left: 70px;
-    padding-right: 70px;
-  }
+  <style>
+    #emart {
+      padding-left: 70px;
+      padding-right: 70px;
+    }
 
-  #right{
-    text-align: right;
-  }
+    #right {
+      text-align: right;
+    }
 
-</style>
+    #center {
+      text-align: center;
+    }
 
+    .result {
+      padding-left: 120px;
+    }
+
+    .padding1 {
+      padding-left: 80px;
+    }
+
+    .padding2 {
+      padding-left: 33px;
+    }
+
+    .tailpad1 {
+      padding-right: 107px;
+    }
+
+    .tailpad2 {
+      padding-left: 0px;
+    }
+  </style>
 
   <body>
     <script>
       header();
-      item();
-      priceCalc();
+      calc();
+      tail();
     </script>
   </body>
 </html>
