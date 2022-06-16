@@ -1,0 +1,66 @@
+<html>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+	<style>
+	a{
+		padding-left : 30px;
+	}
+	
+	td{
+		text-align : center;
+	}
+	</style>
+	
+	<script>
+	function check(obj){
+        //정규식으로 특수문자 판별
+        var regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+        
+        //배열에서 하나씩 값을 비교
+        if( regExp.test(obj.value) ){
+           //값이 일치하면 문자를 삭제
+		   alert("특수문자는 입력할 수 없습니다.")
+           obj.value = obj.value.substring( 0 , obj.value.length - 1 ); 
+        }
+      }
+	
+	 $(function (){
+		
+		$(":submit").click(function () {
+			
+			if($("[name=stu_id]").val().length == 0){
+			alert("공백을 입력할 수 없습니다.")
+			return false;
+			} else if($("[name=stu_id]").val().length > 8) {
+			alert("학번은 8자까지만 가능합니다.")
+			return false;
+			}
+			
+			
+		});
+	});
+	
+	</script>
+	
+    <body>
+	<h1>성적 조회/수정/삭제</h1>
+	</br>
+	<form method = "post" action = "showREC.jsp">
+		<span>조회할 학번 </span> <input onkeyup='check(this)' onkeydown='check(this)' type="number" name="stu_id" /> 
+		<input type = "submit" value="조회"/>
+		</br>
+		</br>
+		<table cellspacing = 1 width = 400 border = 1>
+			
+			<tr><td width = 100>이름</td><td><input onkeyup='check(this)' onkeydown='check(this)' type="search" name="stu_name" /></td></tr>
+			<tr><td width = 100>학번</td><td></td></tr>
+			<tr><td width = 100>국어</td><td><input onkeyup='check(this)' onkeydown='check(this)' type="number" name="kor" /></td></tr>
+			<tr><td width = 100>영어</td><td><input onkeyup='check(this)' onkeydown='check(this)' type="number" name="eng" /></td></tr>
+			<tr><td width = 100>수학</td><td><input onkeyup='check(this)' onkeydown='check(this)' type="number" name="mat" /></td></tr>
+
+		</table>
+	</form>
+    </body>
+</html>
