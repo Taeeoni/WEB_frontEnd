@@ -23,6 +23,7 @@
 		border: solid 2px lightblue;
 		border-radius: 8px;
 		height: 40px;
+		
 	}
 	
 	.gray{
