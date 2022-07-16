@@ -41,6 +41,14 @@ function One() {
           });
         }
 
+        function deleteNotice() {
+          Axios.post(`postapi/home/delete`, null, {
+            params: {
+              id: p.id,
+            },
+          });
+        }
+
         if (p.id == id) {
           console.log(p);
           return (
@@ -86,11 +94,15 @@ function One() {
                     </div>
                   </td>
                   <td>
-                    <Link to={`/Board`}>
-                      <Button type="submit" variant="dark">
+                    <div>
+                      <Button
+                        onClick={deleteNotice}
+                        type="submit"
+                        variant="dark"
+                      >
                         글 삭제
                       </Button>
-                    </Link>
+                    </div>
                   </td>
                   <td>
                     <Link to={`/Board`}>
