@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Container, Table } from "react-bootstrap";
+import { Container, Table, Button } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import BoardService from "../service/BoardService";
 import Pagination from "./Pagination.screen";
@@ -58,6 +58,11 @@ function Board() {
       <div className="d-flex justify-content-center">
         <Pagination pagination={pagination} setPage={(p) => setPage(p)} />
       </div>
+      <Link to={`/Add`}>
+        <Button type="submit" variant="dark">
+          추가
+        </Button>
+      </Link>
     </Container>
   );
 }
