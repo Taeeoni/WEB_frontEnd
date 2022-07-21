@@ -1,63 +1,56 @@
+import { Container, Table, Button } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import { Navigate, useLocation } from "react-router-dom";
-import queryString from "query-string";
 import Axios from "../Axios.js";
-import { Container, Table, Toast, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import Comment from "./Comment.screen.js";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import queryString from "query-string";
 
-function One() {
-  const navigate = useNavigate();
+function AddRe() {
   const { search } = useLocation();
   const { id } = queryString.parse(search);
   const [post, setPost] = useState([]); // post에 데이터가 저장 , setPost 통해 데이터가 변경
   const [content, setContent] = useState("");
+  const [title, setTitle] = useState("");
+  const navigate = useNavigate();
 
-  const onChange = (e) => {
+  const onChangeTitle = (e) => {
+    console.log(e.target);
+    console.log(e.target.value);
+    setTitle(e.target.value);
+  };
+  const onChangeContent = (e) => {
     console.log(e.target);
     console.log(e.target.value);
     setContent(e.target.value);
   };
 
   useEffect(() => {
-    Axios.get(`/postapi/home/findOne?id=${id}`)
+    Axios.get(`/postapi/home/reNew?id=${id}`)
       .then((res) => res.data)
       .then((data) => setPost(data));
   }, []);
 
-  function update() {
-    Axios.post(`postapi/home/revise`, null, {
+  function AddNotice() {
+    Axios.post(`postapi/home/save/re`, null, {
       params: {
-        id: post.id,
-        title: post.title,
+        rootid: post.rootid,
+        recnt: post.recnt,
+        relevel: post.relevel,
+        title: title,
         content: content,
         views: post.views,
+        date: post.date,
       },
     });
-
     navigate(`/Board`);
   }
-
-  function deleteNotice() {
-    Axios.post(`postapi/home/delete`, null, {
-      params: {
-        id: post.id,
-      },
-    });
-
-    navigate(`/Board`);
-  }
-
-  console.log(post);
 
   return (
     <Container>
-      <h1>게시판 글</h1>
-
       <Table striped bordered hover>
         <tr>
           <td width="100">번호</td>
-          <td colspan="3">{post.id}</td>
+          <td colspan="3">신규 (insert)</td>
         </tr>
         <tr>
           <td width="100">답글번호</td>
@@ -74,7 +67,12 @@ function One() {
         <tr>
           <td width="100">제목</td>
           <td colspan="3">
-            <input type="text" name="title" value={post.title} />
+            <input
+              onChange={onChangeTitle}
+              type="text"
+              name="title"
+              value={title}
+            />
           </td>
         </tr>
         <tr>
@@ -89,51 +87,25 @@ function One() {
           <td width="100">내용</td>
           <td colspan="3">
             <textarea
-              onChange={onChange}
+              onChange={onChangeContent}
               name="content"
               cols="70"
               rows="15"
-              defaultValue={post.content}
-            >
-              {content}
-            </textarea>
+            ></textarea>
           </td>
         </tr>
         <tr>
           <td>
             <div>
-              <Button onClick={update} type="submit" variant="dark">
-                글 수정
+              <Button onClick={AddNotice} type="submit" variant="dark">
+                글 추가
               </Button>
             </div>
-          </td>
-          <td>
-            <div>
-              <Button onClick={deleteNotice} type="submit" variant="dark">
-                글 삭제
-              </Button>
-            </div>
-          </td>
-          <td>
-            <Link to={`/Board`}>
-              <Button type="submit" variant="dark">
-                홈
-              </Button>
-            </Link>
-          </td>
-          <td>
-            <Link to={`/AddRe?id=${id}`}>
-              <Button type="submit" variant="dark">
-                답글달기
-              </Button>
-            </Link>
           </td>
         </tr>
       </Table>
-
-      <Comment />
     </Container>
   );
 }
 
-export default One;
+export default AddRe;

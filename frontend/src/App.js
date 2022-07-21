@@ -7,6 +7,7 @@ import Board from "./screen/Board.screen";
 import Main from "./screen/Main.screen";
 import One from "./screen/One.screen";
 import Add from "./screen/Add.screen";
+import AddRe from "./screen/AddRe.screen";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/Board" element={<Board />}></Route>
           <Route path="/One" element={<One />} />
           <Route path="/Add" element={<Add />} />
+          <Route path="/AddRe" element={<AddRe />} />
         </Routes>
       </Layout>
     </BrowserRouter>
