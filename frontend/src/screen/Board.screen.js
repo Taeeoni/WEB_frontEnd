@@ -44,7 +44,7 @@ function Board() {
               <tr>
                 <td>{p.id}</td>
                 <td>
-                  <Link to={`/One?id=${p.id}`}>
+                  <Link to={`/One?id=${p.id}&modify=0`}>
                     {p.title}&nbsp;[{p.noticeComments.length}]
                   </Link>
                 </td>

@@ -24,9 +24,9 @@ function Comment() {
   };
 
   useEffect(() => {
-    Axios.get(`/postapi/home/findOne?id=${id}`)
+    Axios.get(`/postapi/home/findComments?id=${id}`)
       .then((res) => res.data)
-      .then((data) => setPost(data.noticeComments));
+      .then((data) => setPost(data));
   }, []);
 
   function addComment() {

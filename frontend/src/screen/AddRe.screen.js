@@ -30,8 +30,8 @@ function AddRe() {
       .then((data) => setPost(data));
   }, []);
 
-  function AddNotice() {
-    Axios.post(`postapi/home/save/re`, null, {
+  const AddNotice = async () => {
+    await Axios.post(`postapi/home/save/re`, null, {
       params: {
         rootid: post.rootid,
         recnt: post.recnt,
@@ -43,7 +43,7 @@ function AddRe() {
       },
     });
     navigate(`/Board`);
-  }
+  };
 
   return (
     <Container>

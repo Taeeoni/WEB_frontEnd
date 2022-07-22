@@ -8,15 +8,15 @@ function Pagination(props) {
   return (
     <nav aria-label="Page navigation example">
       <ul className="pagination">
-        <li className={"page-item" + (first ? "disabled" : "")}>
-          <a className="page-link" onClick={() => handleClick(0)}>
+        <li className={"page-item " + (first ? "disabled" : "")}>
+          <button className="page-link" onClick={() => handleClick(0)}>
             ❮❮
-          </a>
+          </button>
         </li>
-        <li className={"page-item" + (first ? "disabled" : "")}>
-          <a className="page-link" onClick={() => handleClick(number - 1)}>
+        <li className={"page-item " + (first ? "disabled" : "")}>
+          <button className="page-link" onClick={() => handleClick(number - 1)}>
             ❮
-          </a>
+          </button>
         </li>
         {[...Array(5).keys()]
           .map((k) => k + number - 1)
@@ -24,7 +24,7 @@ function Pagination(props) {
           .map((l) => {
             console.log(number + 1 === l);
             return (
-              <li className={"page-item" + (number + 1 === l ? "active" : "")}>
+              <li className={"page-item " + (number + 1 === l ? "active" : "")}>
                 <button
                   className="page-link"
                   onClick={() => handleClick(l - 1)}
@@ -34,15 +34,18 @@ function Pagination(props) {
               </li>
             );
           })}
-        <li className={"page-item" + (last ? "disabled" : "")}>
-          <a className="page-link" onClick={() => handleClick(number + 1)}>
+        <li className={"page-item " + (last ? "disabled" : "")}>
+          <button className="page-link" onClick={() => handleClick(number + 1)}>
             ❯
-          </a>
+          </button>
         </li>
-        <li className={"page-item" + (last ? "disabled" : "")}>
-          <a className="page-link" onClick={() => handleClick(totalPages - 1)}>
+        <li className={"page-item " + (last ? "disabled" : "")}>
+          <button
+            className="page-link"
+            onClick={() => handleClick(totalPages - 1)}
+          >
             ❯❯
-          </a>
+          </button>
         </li>
       </ul>
     </nav>
