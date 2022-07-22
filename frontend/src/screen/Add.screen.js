@@ -26,8 +26,8 @@ function Add() {
       .then((data) => setPost(data));
   }, []);
 
-  function AddNotice() {
-    Axios.post(`postapi/home/save`, null, {
+  const AddNotice = async () => {
+    await Axios.post(`postapi/home/save`, null, {
       params: {
         title: title,
         content: content,
@@ -36,7 +36,7 @@ function Add() {
       },
     });
     navigate(`/Board`);
-  }
+  };
 
   return (
     <Container>
