@@ -30,21 +30,23 @@ function One() {
   useEffect(() => {
     Axios.get(`/postapi/home/findOne?id=${id}`)
       .then((res) => res.data)
-      .then((data) => setPost(data))
-      .then(setTitle(post.title))
-      .then(setContent(post.content));
+      .then((data) => setPost(data));
+    setTitle(post.title);
+    setContent(post.content);
   }, []);
 
-  function update() {
-    Axios.post(`postapi/home/revise`, null, {
+  const update = async () => {
+    await Axios.post(`postapi/home/revise`, null, {
       params: {
         id: id,
         title: title,
         content: content,
         views: post.views,
       },
-    }).then((res) => (res.data == "OK" ? navigate(`/Board`) : null));
-  }
+    });
+
+    navigate(`/Board`);
+  };
 
   function deleteNotice() {
     Axios.post(`postapi/home/delete`, null, {
