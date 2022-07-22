@@ -5,6 +5,12 @@ import Axios from "../Axios.js";
 import { Container, Table, Toast, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import Comment from "./Comment.screen.js";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
+CKEditor.editorConfig = function (config) {
+  config.enterMode = CKEditor.ENTER_BR;
+};
 
 function One() {
   const navigate = useNavigate();
@@ -12,35 +18,34 @@ function One() {
   const { id } = queryString.parse(search);
   const { modify } = queryString.parse(search);
   const [post, setPost] = useState([]); // post에 데이터가 저장 , setPost 통해 데이터가 변경
-  const [content, setContent] = useState("");
-  const [title, setTitle] = useState("");
+  //   const [content, setContent] = useState("");
+  //   const [title, setTitle] = useState("");
 
-  const onChange = (e) => {
-    console.log(e.target);
-    console.log(e.target.value);
-    setContent(e.target.value);
-  };
+  //   const onChange = (e) => {
+  //     console.log(e.target);
+  //     console.log(e.target.value);
+  //     setContent(e.target.value);
+  //   };
 
   const onChangeTitle = (e) => {
     console.log(e.target);
     console.log(e.target.value);
-    setTitle(e.target.value);
+    setPost((prevState) => ({ ...prevState, title: e.target.value }));
   };
 
   useEffect(() => {
+    console.log("111");
     Axios.get(`/postapi/home/findOne?id=${id}`)
       .then((res) => res.data)
       .then((data) => setPost(data));
-    setTitle(post.title);
-    setContent(post.content);
   }, []);
 
   const update = async () => {
     await Axios.post(`postapi/home/revise`, null, {
       params: {
         id: id,
-        title: title,
-        content: content,
+        title: post.title,
+        content: post.content,
         views: post.views,
       },
     });
@@ -59,8 +64,6 @@ function One() {
   }
 
   console.log(post);
-  console.log(id);
-  console.log(modify);
 
   return (
     <Container>
@@ -116,20 +119,32 @@ function One() {
           <tr>
             <td width="100">내용</td>
             <td colspan="3">
-              <textarea
-                name="content"
-                cols="70"
-                rows="15"
-                defaultValue={post.content}
-                readOnly
-              ></textarea>
+              <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
             </td>
           </tr>
         ) : (
           <tr>
             <td width="100">내용</td>
             <td colspan="3">
-              <textarea
+              <CKEditor
+                editor={ClassicEditor}
+                data={post.content}
+                onReady={(editor) => {
+                  console.log("Editor is ready to use!", editor);
+                }}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  setPost((prevState) => ({ ...prevState, content: data }));
+                  console.log({ event, editor, data });
+                }}
+                onBlur={(event, editor) => {
+                  console.log("Blur.", editor);
+                }}
+                onFocus={(event, editor) => {
+                  console.log("Focus.", editor);
+                }}
+              />
+              {/* <textarea
                 onChange={onChange}
                 name="content"
                 cols="70"
@@ -137,11 +152,12 @@ function One() {
                 defaultValue={post.content}
               >
                 {content}
-              </textarea>
+              </textarea> */}
             </td>
           </tr>
         )}
-
+      </Table>
+      <Table striped bordered hover>
         <tr>
           {modify == 0 ? (
             <td>
