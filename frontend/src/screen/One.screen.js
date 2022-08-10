@@ -18,14 +18,6 @@ function One() {
   const { id } = queryString.parse(search);
   const { modify } = queryString.parse(search);
   const [post, setPost] = useState([]); // post에 데이터가 저장 , setPost 통해 데이터가 변경
-  //   const [content, setContent] = useState("");
-  //   const [title, setTitle] = useState("");
-
-  //   const onChange = (e) => {
-  //     console.log(e.target);
-  //     console.log(e.target.value);
-  //     setContent(e.target.value);
-  //   };
 
   const onChangeTitle = (e) => {
     console.log(e.target);
@@ -53,15 +45,15 @@ function One() {
     navigate(`/Board`);
   };
 
-  function deleteNotice() {
-    Axios.post(`postapi/home/delete`, null, {
+  const deleteNotice = async () => {
+    await Axios.post(`postapi/home/delete`, null, {
       params: {
         id: post.id,
       },
     });
 
     navigate(`/Board`);
-  }
+  };
 
   console.log(post);
 
@@ -201,6 +193,26 @@ function One() {
             </Link>
           </td>
         </tr>
+        {/* {file ? (
+          <tr>
+            <td>
+              <a href={url} download>
+                {file.name}
+              </a>
+            </td>
+          </tr>
+        ) : null}
+        <tr>
+          <React.Fragment>
+            <Button onClick={handleButtonClick}>파일 업로드</Button>
+            <input
+              type="file"
+              ref={fileInput}
+              onChange={handleChange}
+              style={{ display: "none" }}
+            />
+          </React.Fragment>
+        </tr> */}
       </Table>
 
       <Comment />

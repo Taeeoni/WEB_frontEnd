@@ -40,11 +40,19 @@ function Board() {
         </thead>
         <tbody>
           {post.map((p) => {
+            let re = "";
+            if (p.relevel != 0) {
+              re = ">[RE]";
+              for (let i = 0; i < p.relevel; i++) {
+                re = "-" + re;
+              }
+            }
             return (
               <tr>
                 <td>{p.id}</td>
                 <td>
                   <Link to={`/One?id=${p.id}&modify=0`}>
+                    {re}
                     {p.title}&nbsp;[{p.noticeComments.length}]
                   </Link>
                 </td>

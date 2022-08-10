@@ -7,6 +7,9 @@ function Add() {
   const [post, setPost] = useState([]); // post에 데이터가 저장 , setPost 통해 데이터가 변경
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
+
+  const [file, setFile] = useState([]);
+  const [url, setUrl] = useState("");
   const navigate = useNavigate();
 
   const onChangeTitle = (e) => {
@@ -18,6 +21,20 @@ function Add() {
     console.log(e.target);
     console.log(e.target.value);
     setContent(e.target.value);
+  };
+
+  //파일 업로드
+  const fileInput = React.useRef(null);
+
+  const handleButtonClick = (e) => {
+    fileInput.current.click();
+  };
+
+  const handleChange = (e) => {
+    console.log(e.target.files[0]);
+    setFile(e.target.files[0]);
+    console.log(URL.createObjectURL(e.target.files[0]));
+    setUrl(URL.createObjectURL(e.target.files[0]));
   };
 
   useEffect(() => {
@@ -74,6 +91,26 @@ function Add() {
               rows="15"
             ></textarea>
           </td>
+        </tr>
+        {file ? (
+          <tr>
+            <td>
+              <a href={url} download>
+                {file.name}
+              </a>
+            </td>
+          </tr>
+        ) : null}
+        <tr>
+          <React.Fragment>
+            <Button onClick={handleButtonClick}>파일 업로드</Button>
+            <input
+              type="file"
+              ref={fileInput}
+              onChange={handleChange}
+              style={{ display: "none" }}
+            />
+          </React.Fragment>
         </tr>
         <tr>
           <td>
